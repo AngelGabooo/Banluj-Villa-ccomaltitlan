@@ -14,6 +14,16 @@ async function connectToMongo() {
 }
 
 module.exports = async (req, res) => {
+  // Configurar encabezados CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Manejar solicitudes OPTIONS
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   const { fileId } = req.query; // Vercel pasa params dinámicos en req.query
 
   if (req.method !== 'GET') {
@@ -36,4 +46,4 @@ module.exports = async (req, res) => {
     console.error('Error en image:', error);
     res.status(500).json({ error: 'Error del servidor' });
   }
-};
+}

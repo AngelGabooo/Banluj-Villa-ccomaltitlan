@@ -20,7 +20,6 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  // Verificar si el producto tiene detalles completos
   const hasDetails = product.longDescription && product.dimensions && product.material && product.style;
 
   const handleViewDetails = () => {
@@ -34,9 +33,15 @@ const ProductCard = ({ product }) => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-amber-50">
       <div className="relative h-64">
-        <img 
-          src={product.images?.[0] ? `/api/image/${product.images[0]}` : ''} 
-          alt={product.name} 
+        <img
+          src={
+            product.images?.[0]?.startsWith('http')
+              ? product.images[0]
+              : product.images?.[0]
+              ? `/api/image/${product.images[0]}`
+              : ''
+          }
+          alt={product.name}
           className="w-full h-full object-cover"
         />
         
@@ -51,13 +56,13 @@ const ProductCard = ({ product }) => {
           </span>
         </div>
         
-        <button 
+        <button
           onClick={toggleFavorite}
           className="absolute top-3 right-3 p-2 bg-white/90 rounded-full shadow-md hover:bg-red-100 transition-colors"
         >
-          <Icon 
-            name={favorite ? "heart-filled" : "heart"} 
-            className={favorite ? "text-red-500" : "text-gray-400"} 
+          <Icon
+            name={favorite ? "heart-filled" : "heart"}
+            className={favorite ? "text-red-500" : "text-gray-400"}
           />
         </button>
       </div>
@@ -97,8 +102,8 @@ const ProductCard = ({ product }) => {
         </div>
         
         <div className="space-y-2">
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             className="w-full flex items-center justify-center space-x-2"
             onClick={handleViewDetails}
           >
@@ -106,8 +111,8 @@ const ProductCard = ({ product }) => {
             <span>Ver detalles</span>
           </Button>
           
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="w-full flex items-center justify-center space-x-2"
             onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${product.price}) - BANLUJ`, '_blank')}
           >
@@ -117,9 +122,8 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      {/* Modal moderno para información de producto */}
-      <Modal 
-        isOpen={showInfoModal} 
+      <Modal
+        isOpen={showInfoModal}
         onClose={() => setShowInfoModal(false)}
         title={product.name}
         hideCloseButton

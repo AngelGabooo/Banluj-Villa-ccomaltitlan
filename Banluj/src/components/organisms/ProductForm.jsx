@@ -37,7 +37,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     material: 'madera',
     style: 'moderno',
     dimensions: '',
-    images: [], // Ahora almacenará los fileId de MongoDB
+    images: [],
     rating: '4.5',
     discount: '',
     shippingZones: [
@@ -85,17 +85,16 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     const uploadedFileIds = [];
     for (const image of formData.images) {
       if (typeof image === 'string') {
-        // Si la imagen ya es un fileId (de un producto existente), la mantenemos
+        // Mantener fileId existente o URL de Firebase Storage
         uploadedFileIds.push(image);
       } else if (image.isNew) {
-        // Subir nueva imagen al backend
-        const formData = new FormData();
-        formData.append('image', image.file);
+        const formDataUpload = new FormData();
+        formDataUpload.append('image', image.file);
 
         try {
-          const response = await fetch('http://localhost:5000/upload-image', {
+          const response = await fetch('/api/upload-image', {
             method: 'POST',
-            body: formData,
+            body: formDataUpload,
           });
           const result = await response.json();
           if (result.fileId) {
@@ -121,7 +120,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
       const productData = {
         ...formData,
-        images: imageFileIds, // Guardamos los fileId de MongoDB
+        images: imageFileIds,
         brand: 'BANLUJ',
         price: parseFloat(formData.price) || 0,
         rating: parseFloat(formData.rating) || 4.5,
@@ -333,7 +332,9 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
                   src={
                     typeof img === 'string' && img.startsWith('http')
                       ? img
-                      : `http://localhost:5000/image/${img}`
+                      : typeof img === 'string'
+                      ? `/api/image/${img}`
+                      : img
                   }
                   alt={`Previsualización ${index + 1}`}
                   className="w-full h-24 object-cover rounded-md"

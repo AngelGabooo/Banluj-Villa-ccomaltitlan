@@ -16,6 +16,16 @@ async function connectToMongo() {
 }
 
 module.exports = async (req, res) => {
+  // Configurar encabezados CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Manejar solicitudes OPTIONS (necesario para CORS en navegadores)
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }

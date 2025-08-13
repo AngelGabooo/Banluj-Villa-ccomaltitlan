@@ -47,10 +47,8 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleSaveProduct = () => {
-    // Recargar el producto después de la edición (onSubmit en ProductForm ya maneja la actualización)
-    // Aquí solo cerramos el modal y recargamos si es necesario
     setIsEditModalOpen(false);
-    window.location.reload(); // Opcional: recarga la página para ver cambios
+    window.location.reload();
   };
 
   if (isLoading) {
@@ -100,8 +98,8 @@ const ProductDetail = () => {
               <Icon name="arrow-left" className="mr-2" />
               Volver atrás
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
               className="mt-4 md:mt-0"
             >
@@ -118,13 +116,13 @@ const ProductDetail = () => {
   const totalPrice = product.price + selectedShipping.price;
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === product.images.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => 
+    setCurrentImageIndex((prev) =>
       prev === 0 ? product.images.length - 1 : prev - 1
     );
   };
@@ -133,9 +131,9 @@ const ProductDetail = () => {
     <MainTemplate>
       <div className="container mx-auto px-4 py-12 mt-24">
         <div className="flex justify-between items-start mb-6">
-          <Button 
-            variant="text" 
-            onClick={() => navigate(-1)} 
+          <Button
+            variant="text"
+            onClick={() => navigate(-1)}
             className="flex items-center"
           >
             <Icon name="arrow-left" className="mr-2" />
@@ -143,8 +141,8 @@ const ProductDetail = () => {
           </Button>
           
           {isAdmin && (
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               onClick={() => setIsEditModalOpen(true)}
               className="flex items-center"
             >
@@ -157,9 +155,15 @@ const ProductDetail = () => {
         <div className="grid md:grid-cols-2 gap-8">
           <div className="relative">
             <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
-              <img 
-                src={product.images[currentImageIndex]} 
-                alt={product.name} 
+              <img
+                src={
+                  product.images[currentImageIndex]?.startsWith('http')
+                    ? product.images[currentImageIndex]
+                    : product.images[currentImageIndex]
+                    ? `/api/image/${product.images[currentImageIndex]}`
+                    : ''
+                }
+                alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -171,22 +175,26 @@ const ProductDetail = () => {
                   onClick={() => setCurrentImageIndex(index)}
                   className={`aspect-square rounded-md overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-amber-500' : ''}`}
                 >
-                  <img 
-                    src={img} 
-                    alt={`Vista ${index + 1} de ${product.name}`} 
+                  <img
+                    src={
+                      img.startsWith('http')
+                        ? img
+                        : `/api/image/${img}`
+                    }
+                    alt={`Vista ${index + 1} de ${product.name}`}
                     className="w-full h-full object-cover"
                   />
                 </button>
               ))}
             </div>
 
-            <button 
+            <button
               onClick={prevImage}
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md"
             >
               <Icon name="chevron-left" />
             </button>
-            <button 
+            <button
               onClick={nextImage}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md"
             >
@@ -289,8 +297,8 @@ const ProductDetail = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 className="w-full flex items-center justify-center"
                 onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - BANLUJ - Zona: ${shippingZones.find(z => z.id === selectedZone).name}`, '_blank')}
               >
@@ -302,13 +310,13 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <Modal 
-        isOpen={isEditModalOpen} 
+      <Modal
+        isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         title={`Editar ${product.name} - BANLUJ`}
       >
-        <ProductForm 
-          product={product} 
+        <ProductForm
+          product={product}
           onSubmit={handleSaveProduct}
           onCancel={() => setIsEditModalOpen(false)}
         />

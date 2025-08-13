@@ -83,16 +83,16 @@ const Admin = () => {
         <div className="flex justify-between items-center mb-8">
           <Typography variant="h1">Panel de Administración BANLUJ</Typography>
           <div className="flex space-x-4">
-            <Button 
-              variant="primary" 
+            <Button
+              variant="primary"
               onClick={handleAddProduct}
               className="flex items-center"
             >
               <Icon name="plus" className="mr-2" />
               Añadir Producto
             </Button>
-            <Button 
-              variant="secondary" 
+            <Button
+              variant="secondary"
               onClick={logout}
               className="flex items-center"
             >
@@ -131,9 +131,15 @@ const Admin = () => {
                 {products.map((product) => (
                   <tr key={product.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <img 
-                        src={product.images?.[0]} 
-                        alt={product.name} 
+                      <img
+                        src={
+                          product.images?.[0]?.startsWith('http')
+                            ? product.images[0]
+                            : product.images?.[0]
+                            ? `/api/image/${product.images[0]}`
+                            : ''
+                        }
+                        alt={product.name}
                         className="h-12 w-12 rounded-md object-cover"
                       />
                     </td>
@@ -159,15 +165,15 @@ const Admin = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           onClick={() => handleEditProduct(product)}
                         >
                           <Icon name="edit" size="sm" />
                         </Button>
-                        <Button 
-                          variant="outline" 
+                        <Button
+                          variant="outline"
                           size="sm"
                           className="text-red-500 border-red-300 hover:bg-red-50"
                           onClick={() => handleDeleteProduct(product.id)}
@@ -183,14 +189,14 @@ const Admin = () => {
           </div>
         </div>
 
-        <Modal 
-          isOpen={isModalOpen} 
+        <Modal
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title={currentProduct ? 'Editar Producto BANLUJ' : 'Añadir Producto BANLUJ'}
         >
-          <ProductForm 
-            product={currentProduct} 
-            onSubmit={handleSubmit} 
+          <ProductForm
+            product={currentProduct}
+            onSubmit={handleSubmit}
             onCancel={() => setIsModalOpen(false)}
           />
         </Modal>
