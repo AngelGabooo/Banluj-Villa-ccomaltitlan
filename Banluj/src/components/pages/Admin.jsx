@@ -132,7 +132,7 @@ const Admin = () => {
                   <tr key={product.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <img 
-                        src={product.images?.[0]} 
+                        src={product.images?.[0] ? `/api/image/${product.images[0]}` : ''} 
                         alt={product.name} 
                         className="h-12 w-12 rounded-md object-cover"
                       />
