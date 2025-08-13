@@ -1,36 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import { useFavorites } from '../../context/FavoritesContext';
 import Modal from '../molecules/Modal';
-import { getImageFromPouchDB } from '../../utils/pouchdb';
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   const favorite = isFavorite(product.id);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [imageSrc, setImageSrc] = useState('');
-
-  useEffect(() => {
-    const loadImage = async () => {
-      if (product.images?.[0]?.startsWith('image_')) {
-        const src = await getImageFromPouchDB(product.images[0]);
-        setImageSrc(src || '');
-      } else {
-        setImageSrc(
-          product.images?.[0]?.startsWith('http')
-            ? product.images[0]
-            : product.images?.[0]
-            ? `/api/image/${product.images[0]}`
-            : ''
-        );
-      }
-    };
-    loadImage();
-  }, [product.images]);
 
   const toggleFavorite = () => {
     if (favorite) {
@@ -54,7 +34,13 @@ const ProductCard = ({ product }) => {
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-amber-50">
       <div className="relative h-64">
         <img
-          src={imageSrc}
+          src={
+            product.images?.[0]?.startsWith('http')
+              ? product.images[0]
+              : product.images?.[0]
+              ? `/api/image/${product.images[0]}`
+              : ''
+          }
           alt={product.name}
           className="w-full h-full object-cover"
         />

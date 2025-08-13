@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase';
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { getImageFromPouchDB } from '../../utils/pouchdb';
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -31,22 +30,10 @@ const Admin = () => {
     setIsLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
-      const productsList = await Promise.all(
-        querySnapshot.docs.map(async (doc) => {
-          const data = doc.data();
-          let imageSrc = '';
-          if (data.images?.[0]?.startsWith('image_')) {
-            imageSrc = await getImageFromPouchDB(data.images[0]);
-          } else {
-            imageSrc = data.images?.[0]?.startsWith('http')
-              ? data.images[0]
-              : data.images?.[0]
-              ? `/api/image/${data.images[0]}`
-              : '';
-          }
-          return { id: doc.id, ...data, imageSrc };
-        })
-      );
+      const productsList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
       setProducts(productsList);
     } catch (error) {
       console.error("Error loading products:", error);
@@ -145,7 +132,13 @@ const Admin = () => {
                   <tr key={product.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <img
-                        src={product.imageSrc}
+                        src={
+                          product.images?.[0]?.startsWith('http')
+                            ? product.images[0]
+                            : product.images?.[0]
+                            ? `/api/image/${product.images[0]}`
+                            : ''
+                        }
                         alt={product.name}
                         className="h-12 w-12 rounded-md object-cover"
                       />
