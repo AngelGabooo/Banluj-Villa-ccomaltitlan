@@ -37,7 +37,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     material: 'madera',
     style: 'moderno',
     dimensions: '',
-    images: [],
+    images: [], // Ahora almacenará los fileId de MongoDB
     rating: '4.5',
     discount: '',
     shippingZones: [
@@ -85,20 +85,27 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     const uploadedFileIds = [];
     for (const image of formData.images) {
       if (typeof image === 'string') {
+        // Si la imagen ya es un fileId (de un producto existente), la mantenemos
         uploadedFileIds.push(image);
       } else if (image.isNew) {
-        const formDataUpload = new FormData();
-        formDataUpload.append('image', image.file);
+        // Subir nueva imagen al backend
+        const formData = new FormData();
+        formData.append('image', image.file);
 
-        const response = await fetch('/api/upload-image', {
-          method: 'POST',
-          body: formDataUpload,
-        });
-        const result = await response.json();
-        if (result.fileId) {
-          uploadedFileIds.push(result.fileId);
-        } else {
-          throw new Error('Error al subir la imagen');
+        try {
+          const response = await fetch('http://localhost:5000/upload-image', {
+            method: 'POST',
+            body: formData,
+          });
+          const result = await response.json();
+          if (result.fileId) {
+            uploadedFileIds.push(result.fileId);
+          } else {
+            throw new Error('Error al subir la imagen');
+          }
+        } catch (error) {
+          console.error('Error al subir la imagen:', error);
+          throw error;
         }
       }
     }
@@ -114,7 +121,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
       const productData = {
         ...formData,
-        images: imageFileIds,
+        images: imageFileIds, // Guardamos los fileId de MongoDB
         brand: 'BANLUJ',
         price: parseFloat(formData.price) || 0,
         rating: parseFloat(formData.rating) || 4.5,
@@ -139,7 +146,164 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* ... El resto del formulario se mantiene igual, solo cambia la previsualización para manejar fileId ... */}
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Nombre del Producto
+        </Typography>
+        <Input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Ej: Cama King Size Deluxe"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descripción Corta
+        </Typography>
+        <Input
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="Ej: Madera de roble macizo con acabado natural"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descripción Larga
+        </Typography>
+        <textarea
+          name="longDescription"
+          value={formData.longDescription}
+          onChange={handleChange}
+          placeholder="Ej: Esta cama king size está fabricada con los más altos estándares..."
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          rows="5"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Precio (MXN)
+        </Typography>
+        <Input
+          type="number"
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
+          placeholder="Ej: 1299.99"
+          step="0.01"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descuento (%)
+        </Typography>
+        <Input
+          type="number"
+          name="discount"
+          value={formData.discount}
+          onChange={handleChange}
+          placeholder="Ej: 15"
+          min="0"
+          max="100"
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Categoría
+        </Typography>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {categories.map((category) => (
+            <option key={category.value} value={category.value}>
+              {category.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Material
+        </Typography>
+        <select
+          name="material"
+          value={formData.material}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {materials.map((material) => (
+            <option key={material.value} value={material.value}>
+              {material.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Estilo
+        </Typography>
+        <select
+          name="style"
+          value={formData.style}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {styles.map((style) => (
+            <option key={style.value} value={style.value}>
+              {style.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Dimensiones
+        </Typography>
+        <Input
+          type="text"
+          name="dimensions"
+          value={formData.dimensions}
+          onChange={handleChange}
+          placeholder="Ej: 200x180 cm"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Calificación
+        </Typography>
+        <Input
+          type="number"
+          name="rating"
+          value={formData.rating}
+          onChange={handleChange}
+          placeholder="Ej: 4.5"
+          step="0.1"
+          min="0"
+          max="5"
+          required
+        />
+      </div>
+
       <div>
         <Typography variant="h3" className="text-lg font-medium mb-2">
           Imágenes
@@ -152,7 +316,12 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
               accept="image/*"
               multiple
               onChange={handleMultipleImagesUpload}
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-amber-50 file:text-amber-700
+                hover:file:bg-amber-100"
             />
           </label>
         </div>
@@ -161,7 +330,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             {previewImages.map((img, index) => (
               <div key={index} className="relative">
                 <img
-                  src={typeof img === 'string' ? `/api/image/${img}` : img}
+                  src={
+                    typeof img === 'string' && img.startsWith('http')
+                      ? img
+                      : `http://localhost:5000/image/${img}`
+                  }
                   alt={`Previsualización ${index + 1}`}
                   className="w-full h-24 object-cover rounded-md"
                 />
