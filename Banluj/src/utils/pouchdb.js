@@ -1,5 +1,7 @@
 import PouchDB from 'pouchdb-browser';
 
+console.log('PouchDB loaded:', PouchDB); // Depuración para verificar la carga
+
 // Configurar la base de datos PouchDB en el navegador
 const db = new PouchDB('banluj_images');
 
