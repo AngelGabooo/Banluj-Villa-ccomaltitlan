@@ -1,3 +1,4 @@
+// components/molecules/ProductCard.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '../atoms/Typography';
@@ -34,13 +35,7 @@ const ProductCard = ({ product }) => {
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-amber-50">
       <div className="relative h-64">
         <img
-          src={
-            product.images?.[0]?.startsWith('http')
-              ? product.images[0]
-              : product.images?.[0]
-              ? `/api/image/${product.images[0]}`
-              : ''
-          }
+          src={product.images?.[0] || ''}  // URL directa de Cloudinary
           alt={product.name}
           className="w-full h-full object-cover"
         />

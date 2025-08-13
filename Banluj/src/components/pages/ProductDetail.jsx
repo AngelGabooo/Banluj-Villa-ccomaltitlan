@@ -1,3 +1,4 @@
+// components/pages/ProductDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import MainTemplate from '../templates/MainTemplate';
@@ -8,12 +9,12 @@ import Modal from '../molecules/Modal';
 import ProductForm from '../organisms/ProductForm';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from 'firebase/firestore';
 
 const shippingZones = [
   { id: 1, name: 'Mapastepec - Tapachula', price: 0 },
   { id: 2, name: 'Mapastepec - Tonalá', price: 300 },
-  { id: 3, name: 'Fuera de región', price: 500 }
+  { id: 3, name: 'Fuera de región', price: 500 },
 ];
 
 const ProductDetail = () => {
@@ -30,7 +31,7 @@ const ProductDetail = () => {
     const loadProduct = async () => {
       setIsLoading(true);
       try {
-        const docRef = doc(db, "products", id);
+        const docRef = doc(db, 'products', id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setProduct({ id: docSnap.id, ...docSnap.data() });
@@ -38,7 +39,7 @@ const ProductDetail = () => {
           setProduct(null);
         }
       } catch (error) {
-        console.error("Error loading product:", error);
+        console.error('Error loading product:', error);
       }
       setIsLoading(false);
     };
@@ -100,7 +101,7 @@ const ProductDetail = () => {
             </Button>
             <Button
               variant="secondary"
-              onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
+              onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en:some text ${product.name} - BANLUJ`, '_blank')}
               className="mt-4 md:mt-0"
             >
               <Icon name="whatsapp" className="mr-2" />
@@ -112,34 +113,26 @@ const ProductDetail = () => {
     );
   }
 
-  const selectedShipping = shippingZones.find(z => z.id === selectedZone);
+  const selectedShipping = shippingZones.find((z) => z.id === selectedZone);
   const totalPrice = product.price + selectedShipping.price;
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev === product.images.length - 1 ? 0 : prev + 1
-    );
+    setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) =>
-      prev === 0 ? product.images.length - 1 : prev - 1
-    );
+    setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
   };
 
   return (
     <MainTemplate>
       <div className="container mx-auto px-4 py-12 mt-24">
         <div className="flex justify-between items-start mb-6">
-          <Button
-            variant="text"
-            onClick={() => navigate(-1)}
-            className="flex items-center"
-          >
+          <Button variant="text" onClick={() => navigate(-1)} className="flex items-center">
             <Icon name="arrow-left" className="mr-2" />
             Volver atrás
           </Button>
-          
+
           {isAdmin && (
             <Button
               variant="secondary"
@@ -156,31 +149,23 @@ const ProductDetail = () => {
           <div className="relative">
             <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
               <img
-                src={
-                  product.images[currentImageIndex]?.startsWith('http')
-                    ? product.images[currentImageIndex]
-                    : product.images[currentImageIndex]
-                    ? `/api/image/${product.images[currentImageIndex]}`
-                    : ''
-                }
+                src={product.images[currentImageIndex] || ''}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            
+
             <div className="grid grid-cols-4 gap-2 mt-4">
               {product.images.map((img, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`aspect-square rounded-md overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-amber-500' : ''}`}
+                  className={`aspect-square rounded-md overflow-hidden ${
+                    currentImageIndex === index ? 'ring-2 ring-amber-500' : ''
+                  }`}
                 >
                   <img
-                    src={
-                      img.startsWith('http')
-                        ? img
-                        : `/api/image/${img}`
-                    }
+                    src={img}
                     alt={`Vista ${index + 1} de ${product.name}`}
                     className="w-full h-full object-cover"
                   />
@@ -211,7 +196,7 @@ const ProductDetail = () => {
                 BANLUJ
               </span>
             </div>
-            
+
             <div className="flex items-center mb-4">
               <div className="flex items-center text-amber-500 mr-4">
                 <Icon name="star" className="mr-1" />
@@ -223,7 +208,7 @@ const ProductDetail = () => {
             {product.discount && (
               <div className="flex items-center mb-4">
                 <span className="text-gray-500 line-through mr-2">
-                  ${(product.price / (1 - product.discount/100)).toFixed(2)}
+                  ${(product.price / (1 - product.discount / 100)).toFixed(2)}
                 </span>
                 <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-sm">
                   {product.discount}% OFF
@@ -272,7 +257,7 @@ const ProductDetail = () => {
                 onChange={(e) => setSelectedZone(parseInt(e.target.value))}
                 className="block w-full p-2 border border-gray-300 rounded-md"
               >
-                {shippingZones.map(zone => (
+                {shippingZones.map((zone) => (
                   <option key={zone.id} value={zone.id}>
                     {zone.name} - {zone.price === 0 ? 'GRATIS' : `$${zone.price}`}
                   </option>
@@ -300,7 +285,12 @@ const ProductDetail = () => {
               <Button
                 variant="primary"
                 className="w-full flex items-center justify-center"
-                onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - BANLUJ - Zona: ${shippingZones.find(z => z.id === selectedZone).name}`, '_blank')}
+                onClick={() =>
+                  window.open(
+                    `https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - BANLUJ - Zona: ${shippingZones.find((z) => z.id === selectedZone).name}`,
+                    '_blank'
+                  )
+                }
               >
                 <Icon name="whatsapp" className="mr-2" />
                 Consultar por WhatsApp
@@ -315,11 +305,7 @@ const ProductDetail = () => {
         onClose={() => setIsEditModalOpen(false)}
         title={`Editar ${product.name} - BANLUJ`}
       >
-        <ProductForm
-          product={product}
-          onSubmit={handleSaveProduct}
-          onCancel={() => setIsEditModalOpen(false)}
-        />
+        <ProductForm product={product} onSubmit={handleSaveProduct} onCancel={() => setIsEditModalOpen(false)} />
       </Modal>
     </MainTemplate>
   );

@@ -1,3 +1,4 @@
+// components/organisms/ProductForm.js
 import React, { useState, useEffect } from 'react';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
@@ -82,11 +83,10 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   };
 
   const uploadImages = async () => {
-    const uploadedFileIds = [];
+    const uploadedUrls = [];
     for (const image of formData.images) {
       if (typeof image === 'string') {
-        // Mantener fileId existente o URL de Firebase Storage
-        uploadedFileIds.push(image);
+        uploadedUrls.push(image); // Mantener URLs existentes
       } else if (image.isNew) {
         const formDataUpload = new FormData();
         formDataUpload.append('image', image.file);
@@ -97,8 +97,8 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             body: formDataUpload,
           });
           const result = await response.json();
-          if (result.fileId) {
-            uploadedFileIds.push(result.fileId);
+          if (result.url) {
+            uploadedUrls.push(result.url);
           } else {
             throw new Error('Error al subir la imagen');
           }
@@ -108,7 +108,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
         }
       }
     }
-    return uploadedFileIds;
+    return uploadedUrls;
   };
 
   const handleSubmit = async (e) => {
@@ -116,11 +116,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     setUploading(true);
 
     try {
-      const imageFileIds = await uploadImages();
+      const imageUrls = await uploadImages();
 
       const productData = {
         ...formData,
-        images: imageFileIds,
+        images: imageUrls,
         brand: 'BANLUJ',
         price: parseFloat(formData.price) || 0,
         rating: parseFloat(formData.rating) || 4.5,
@@ -329,13 +329,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             {previewImages.map((img, index) => (
               <div key={index} className="relative">
                 <img
-                  src={
-                    typeof img === 'string' && img.startsWith('http')
-                      ? img
-                      : typeof img === 'string'
-                      ? `/api/image/${img}`
-                      : img
-                  }
+                  src={typeof img === 'string' ? img : img}
                   alt={`Previsualización ${index + 1}`}
                   className="w-full h-24 object-cover rounded-md"
                 />
