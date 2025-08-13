@@ -9,6 +9,7 @@ import ProductForm from '../organisms/ProductForm';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase';
 import { doc, getDoc } from "firebase/firestore";
+import { getImageFromPouchDB } from '../../utils/pouchdb';
 
 const shippingZones = [
   { id: 1, name: 'Mapastepec - Tapachula', price: 0 },
@@ -25,6 +26,7 @@ const ProductDetail = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [imageSrcs, setImageSrcs] = useState([]);
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -33,7 +35,19 @@ const ProductDetail = () => {
         const docRef = doc(db, "products", id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setProduct({ id: docSnap.id, ...docSnap.data() });
+          const productData = { id: docSnap.id, ...docSnap.data() };
+          setProduct(productData);
+
+          // Cargar imágenes desde PouchDB o mantener URLs
+          const srcs = await Promise.all(
+            productData.images.map(async (img) => {
+              if (img.startsWith('image_')) {
+                return await getImageFromPouchDB(img);
+              }
+              return img.startsWith('http') ? img : `/api/image/${img}`;
+            })
+          );
+          setImageSrcs(srcs);
         } else {
           setProduct(null);
         }
@@ -156,31 +170,21 @@ const ProductDetail = () => {
           <div className="relative">
             <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
               <img
-                src={
-                  product.images[currentImageIndex]?.startsWith('http')
-                    ? product.images[currentImageIndex]
-                    : product.images[currentImageIndex]
-                    ? `/api/image/${product.images[currentImageIndex]}`
-                    : ''
-                }
+                src={imageSrcs[currentImageIndex] || ''}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
             
             <div className="grid grid-cols-4 gap-2 mt-4">
-              {product.images.map((img, index) => (
+              {imageSrcs.map((img, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`aspect-square rounded-md overflow-hidden ${currentImageIndex === index ? 'ring-2 ring-amber-500' : ''}`}
                 >
                   <img
-                    src={
-                      img.startsWith('http')
-                        ? img
-                        : `/api/image/${img}`
-                    }
+                    src={img}
                     alt={`Vista ${index + 1} de ${product.name}`}
                     className="w-full h-full object-cover"
                   />

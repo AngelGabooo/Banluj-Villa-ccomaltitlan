@@ -5,6 +5,7 @@ import Typography from '../atoms/Typography';
 import Icon from '../atoms/Icon';
 import { db } from '../../firebase';
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { uploadImageToPouchDB, deleteImageFromPouchDB } from '../../utils/pouchdb';
 
 const categories = [
   { value: 'camas', label: 'Camas' },
@@ -53,7 +54,19 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   useEffect(() => {
     if (product) {
       setFormData(product);
-      setPreviewImages(product.images || []);
+      // Convertir IDs de PouchDB a previsualizaciones si es necesario
+      const loadPreviews = async () => {
+        const previews = await Promise.all(
+          product.images.map(async (imageId) => {
+            if (imageId.startsWith('image_')) {
+              return await getImageFromPouchDB(imageId);
+            }
+            return imageId; // Mantener URLs antiguas si existen
+          })
+        );
+        setPreviewImages(previews);
+      };
+      loadPreviews();
     }
   }, [product]);
 
@@ -62,7 +75,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleMultipleImagesUpload = (e) => {
+  const handleMultipleImagesUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length > 0) {
       const newPreviews = files.map((file) => URL.createObjectURL(file));
@@ -72,7 +85,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     }
   };
 
-  const removeImage = (index) => {
+  const removeImage = async (index) => {
+    const imageId = formData.images[index];
+    if (typeof imageId === 'string' && imageId.startsWith('image_')) {
+      await deleteImageFromPouchDB(imageId);
+    }
     const newImages = [...formData.images];
     const newPreviews = [...previewImages];
     newImages.splice(index, 1);
@@ -82,33 +99,22 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   };
 
   const uploadImages = async () => {
-    const uploadedFileIds = [];
+    const uploadedImageIds = [];
     for (const image of formData.images) {
       if (typeof image === 'string') {
-        // Mantener fileId existente o URL de Firebase Storage
-        uploadedFileIds.push(image);
+        // Mantener IDs existentes de PouchDB o URLs antiguas
+        uploadedImageIds.push(image);
       } else if (image.isNew) {
-        const formDataUpload = new FormData();
-        formDataUpload.append('image', image.file);
-
         try {
-          const response = await fetch('/api/upload-image', {
-            method: 'POST',
-            body: formDataUpload,
-          });
-          const result = await response.json();
-          if (result.fileId) {
-            uploadedFileIds.push(result.fileId);
-          } else {
-            throw new Error('Error al subir la imagen');
-          }
+          const imageId = await uploadImageToPouchDB(image.file);
+          uploadedImageIds.push(imageId);
         } catch (error) {
           console.error('Error al subir la imagen:', error);
           throw error;
         }
       }
     }
-    return uploadedFileIds;
+    return uploadedImageIds;
   };
 
   const handleSubmit = async (e) => {
@@ -116,11 +122,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     setUploading(true);
 
     try {
-      const imageFileIds = await uploadImages();
+      const imageIds = await uploadImages();
 
       const productData = {
         ...formData,
-        images: imageFileIds,
+        images: imageIds,
         brand: 'BANLUJ',
         price: parseFloat(formData.price) || 0,
         rating: parseFloat(formData.rating) || 4.5,
@@ -329,13 +335,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             {previewImages.map((img, index) => (
               <div key={index} className="relative">
                 <img
-                  src={
-                    typeof img === 'string' && img.startsWith('http')
-                      ? img
-                      : typeof img === 'string'
-                      ? `/api/image/${img}`
-                      : img
-                  }
+                  src={img}
                   alt={`Previsualización ${index + 1}`}
                   className="w-full h-24 object-cover rounded-md"
                 />
