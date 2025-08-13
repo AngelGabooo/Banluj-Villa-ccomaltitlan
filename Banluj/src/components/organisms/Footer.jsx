@@ -14,7 +14,7 @@ const Footer = () => {
               <img 
                 src={logoImage} 
                 alt="Logo BANLUJ" 
-                className="h-12 w-auto mr-3 rounded-lg"
+                className="h-12 w-auto mr-3 rounded-lg" 
               />
               <Typography variant="h4" className="text-2xl font-bold text-gray-900">
                 BANLUJ

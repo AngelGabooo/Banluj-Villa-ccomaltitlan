@@ -4,7 +4,8 @@ import ProductGrid from '../organisms/ProductGrid';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
-import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase';
+import { collection, getDocs } from "firebase/firestore";
 
 const categories = [
   { id: 'all', name: 'Todos', icon: 'all_inclusive' },
@@ -42,68 +43,22 @@ const Products = () => {
   const [selectedMaterial, setSelectedMaterial] = useState('all');
   const [selectedStyle, setSelectedStyle] = useState('all');
   const [sortBy, setSortBy] = useState('name');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [allProducts, setAllProducts] = useState([]);
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
-    const loadProducts = () => {
+    const loadProducts = async () => {
       setIsLoading(true);
-      const savedProducts = JSON.parse(localStorage.getItem('admin-products'));
-      const defaultProducts = [
-        {
-          id: 1,
-          name: 'Cama King Size Deluxe',
-          description: 'Madera de roble macizo con acabado natural, estructura reforzada',
-          brand: 'BANLUJ',
-          price: 1299.99,
-          images: [
-            'https://images.unsplash.com/photo-1567538096631-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1583845112206-5e7b0d6d7b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-          ],
-          category: 'camas',
-          material: 'madera',
-          style: 'moderno',
-          rating: 4.8,
-          discount: 15,
-          dimensions: '200x180 cm'
-        },
-        {
-          id: 2,
-          name: 'Cabecera Moderna en Nogal',
-          description: 'Diseño contemporáneo con detalles en metal cepillado',
-          brand: 'BANLUJ',
-          price: 599.99,
-          images: [
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-          ],
-          category: 'cabeceras',
-          material: 'madera',
-          style: 'moderno',
-          rating: 4.7,
-          discount: null,
-          dimensions: '180x120 cm'
-        },
-        {
-          id: 3,
-          name: 'Juego de Dormitorio Completo',
-          description: 'Incluye cama queen size, cabecera y 2 mesitas de noche',
-          brand: 'BANLUJ',
-          price: 2499.99,
-          images: [
-            'https://images.unsplash.com/photo-1583845112206-5e7b0d6d7b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-          ],
-          category: 'conjuntos',
-          material: 'madera',
-          style: 'clasico',
-          rating: 4.9,
-          discount: 10,
-          dimensions: 'Variadas'
-        }
-      ];
-      
-      setAllProducts(savedProducts || defaultProducts);
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const productsList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setAllProducts(productsList);
+      } catch (error) {
+        console.error("Error loading products:", error);
+      }
       setIsLoading(false);
     };
 

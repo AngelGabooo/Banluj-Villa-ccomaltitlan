@@ -7,6 +7,8 @@ import Icon from '../atoms/Icon';
 import Modal from '../molecules/Modal';
 import ProductForm from '../organisms/ProductForm';
 import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase';
+import { doc, getDoc } from "firebase/firestore";
 
 const shippingZones = [
   { id: 1, name: 'Mapastepec - Tapachula', price: 0 },
@@ -25,55 +27,30 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadProduct = () => {
+    const loadProduct = async () => {
       setIsLoading(true);
-      const savedProducts = JSON.parse(localStorage.getItem('admin-products')) || [];
-      const defaultProducts = [
-        {
-          id: 1,
-          name: 'Cama King Size Deluxe',
-          description: 'Madera de roble macizo con acabado natural, estructura reforzada',
-          longDescription: 'Esta cama king size está fabricada con los más altos estándares de calidad. La estructura de roble macizo garantiza durabilidad y resistencia, mientras que el acabado natural resalta la belleza de la veta de la madera. Incluye cabecera con diseño ergonómico y base con refuerzos metálicos.',
-          price: 1299.99,
-          brand: 'BANLUJ',
-          images: [
-            'https://images.unsplash.com/photo-1567538096631-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1583845112206-5e7b0d6d7b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-          ],
-          category: 'camas',
-          material: 'madera',
-          style: 'moderno',
-          rating: 4.8,
-          discount: 15,
-          dimensions: '200x180 cm',
-          shippingZones: [
-            { zone: 'Mapastepec - Tapachula', price: 0 },
-            { zone: 'Mapastepec - Tonalá', price: 300 },
-            { zone: 'Fuera de región', price: 500 }
-          ]
+      try {
+        const docRef = doc(db, "products", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProduct({ id: docSnap.id, ...docSnap.data() });
+        } else {
+          setProduct(null);
         }
-      ];
-
-      const allProducts = savedProducts.length > 0 ? savedProducts : defaultProducts;
-      const foundProduct = allProducts.find(p => p.id === parseInt(id));
-      
-      setProduct(foundProduct || null);
+      } catch (error) {
+        console.error("Error loading product:", error);
+      }
       setIsLoading(false);
     };
 
     loadProduct();
   }, [id]);
 
-  const handleSaveProduct = (updatedProduct) => {
-    const savedProducts = JSON.parse(localStorage.getItem('admin-products')) || [];
-    const updatedProducts = savedProducts.map(p => 
-      p.id === updatedProduct.id ? updatedProduct : p
-    );
-    
-    localStorage.setItem('admin-products', JSON.stringify(updatedProducts));
-    setProduct(updatedProduct);
+  const handleSaveProduct = () => {
+    // Recargar el producto después de la edición (onSubmit en ProductForm ya maneja la actualización)
+    // Aquí solo cerramos el modal y recargamos si es necesario
     setIsEditModalOpen(false);
+    window.location.reload(); // Opcional: recarga la página para ver cambios
   };
 
   if (isLoading) {
@@ -99,7 +76,6 @@ const ProductDetail = () => {
     );
   }
 
-  // Verificación para mostrar mensaje de mantenimiento cuando no hay imágenes
   if (!product.images || product.images.length === 0) {
     return (
       <MainTemplate>

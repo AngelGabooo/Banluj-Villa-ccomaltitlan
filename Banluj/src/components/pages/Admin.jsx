@@ -3,11 +3,12 @@ import MainTemplate from '../templates/MainTemplate';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
-import ProductGrid from '../organisms/ProductGrid';
 import Modal from '../molecules/Modal';
 import ProductForm from '../organisms/ProductForm';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase';
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
@@ -20,51 +21,24 @@ const Admin = () => {
   useEffect(() => {
     if (!isAdmin) {
       navigate('/login');
+    } else {
+      loadProducts();
     }
   }, [isAdmin, navigate]);
 
-  useEffect(() => {
-    const loadProducts = () => {
-      setIsLoading(true);
-      const savedProducts = JSON.parse(localStorage.getItem('admin-products'));
-      const defaultProducts = [
-        {
-          id: 1,
-          name: 'Cama King Size Deluxe',
-          description: 'Madera de roble macizo con acabado natural, estructura reforzada',
-          longDescription: 'Esta cama king size está fabricada con los más altos estándares de calidad. La estructura de roble macizo garantiza durabilidad y resistencia, mientras que el acabado natural resalta la belleza de la veta de la madera. Incluye cabecera con diseño ergonómico y base con refuerzos metálicos.',
-          price: 1299.99,
-          brand: 'BANLUJ',
-          images: [
-            'https://images.unsplash.com/photo-1567538096631-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1583845112206-5e7b0d6d7b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
-          ],
-          category: 'camas',
-          material: 'madera',
-          style: 'moderno',
-          rating: 4.8,
-          discount: 15,
-          dimensions: '200x180 cm',
-          shippingZones: [
-            { zone: 'Mapastepec - Tapachula', price: 0 },
-            { zone: 'Mapastepec - Tonalá', price: 300 },
-            { zone: 'Fuera de región', price: 500 }
-          ],
-          createdAt: new Date().toISOString()
-        }
-      ];
-      
-      setProducts(savedProducts || defaultProducts);
-      setIsLoading(false);
-    };
-
-    loadProducts();
-  }, []);
-
-  const saveProducts = (updatedProducts) => {
-    setProducts(updatedProducts);
-    localStorage.setItem('admin-products', JSON.stringify(updatedProducts));
+  const loadProducts = async () => {
+    setIsLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      const productsList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setProducts(productsList);
+    } catch (error) {
+      console.error("Error loading products:", error);
+    }
+    setIsLoading(false);
   };
 
   const handleAddProduct = () => {
@@ -77,31 +51,19 @@ const Admin = () => {
     setIsModalOpen(true);
   };
 
-  const handleDeleteProduct = (productId) => {
+  const handleDeleteProduct = async (productId) => {
     if (window.confirm('¿Estás seguro de eliminar este producto?')) {
-      const updatedProducts = products.filter(p => p.id !== productId);
-      saveProducts(updatedProducts);
+      try {
+        await deleteDoc(doc(db, "products", productId));
+        loadProducts();
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
     }
   };
 
-  const handleSubmit = (productData) => {
-    let updatedProducts;
-    
-    if (currentProduct) {
-      updatedProducts = products.map(p => 
-        p.id === currentProduct.id ? { ...p, ...productData } : p
-      );
-    } else {
-      const newProduct = {
-        ...productData,
-        id: Date.now(),
-        brand: 'BANLUJ',
-        createdAt: new Date().toISOString()
-      };
-      updatedProducts = [...products, newProduct];
-    }
-    
-    saveProducts(updatedProducts);
+  const handleSubmit = async () => {
+    await loadProducts();
     setIsModalOpen(false);
   };
 

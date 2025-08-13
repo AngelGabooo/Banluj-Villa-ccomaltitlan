@@ -3,6 +3,9 @@ import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 import Typography from '../atoms/Typography';
 import Icon from '../atoms/Icon';
+import { db, storage } from '../../firebase';
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const categories = [
   { value: 'camas', label: 'Camas' },
@@ -46,28 +49,11 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   });
 
   const [previewImages, setPreviewImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (product) {
-      setFormData({
-        name: product.name || '',
-        description: product.description || '',
-        longDescription: product.longDescription || '',
-        price: product.price || '',
-        brand: product.brand || 'BANLUJ',
-        category: product.category || 'camas',
-        material: product.material || 'madera',
-        style: product.style || 'moderno',
-        dimensions: product.dimensions || '',
-        images: product.images || [],
-        rating: product.rating || '4.5',
-        discount: product.discount || '',
-        shippingZones: product.shippingZones || [
-          { zone: 'Mapastepec - Tapachula', price: 0 },
-          { zone: 'Mapastepec - Tonalá', price: 300 },
-          { zone: 'Fuera de región', price: 500 }
-        ]
-      });
+      setFormData(product);
       setPreviewImages(product.images || []);
     }
   }, [product]);
@@ -80,257 +66,296 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   const handleMultipleImagesUpload = (e) => {
     const files = Array.from(e.target.files);
     if (files.length > 0) {
-      const newImages = [];
-      
-      files.forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          newImages.push(reader.result);
-          if (index === files.length - 1) {
-            setFormData(prev => ({ ...prev, images: [...prev.images, ...newImages] }));
-            setPreviewImages(prev => [...prev, ...newImages]);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
+      const newPreviews = files.map(file => URL.createObjectURL(file));
+      setPreviewImages(prev => [...prev, ...newPreviews]);
+      const newImages = files.map(file => ({ file, isNew: true }));
+      setFormData(prev => ({ ...prev, images: [...prev.images, ...newImages] }));
     }
   };
 
   const removeImage = (index) => {
     const newImages = [...formData.images];
+    const newPreviews = [...previewImages];
     newImages.splice(index, 1);
+    newPreviews.splice(index, 1);
     setFormData(prev => ({ ...prev, images: newImages }));
-    setPreviewImages(newImages);
+    setPreviewImages(newPreviews);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.description || !formData.price) {
-      alert('Por favor completa los campos requeridos');
-      return;
+  const uploadImages = async () => {
+    const uploadedUrls = [];
+    for (const image of formData.images) {
+      if (typeof image === 'string') {
+        uploadedUrls.push(image);
+      } else if (image.isNew) {
+        const storageRef = ref(storage, `products/${Date.now()}_${image.file.name}`);
+        const snapshot = await uploadString(storageRef, await fileToBase64(image.file), 'data_url');
+        const url = await getDownloadURL(snapshot.ref);
+        uploadedUrls.push(url);
+      }
     }
-    
-    const productData = {
-      ...formData,
-      brand: 'BANLUJ',
-      price: parseFloat(formData.price),
-      rating: parseFloat(formData.rating),
-      discount: formData.discount ? parseInt(formData.discount) : null
-    };
-    
-    onSubmit(productData);
+    return uploadedUrls;
+  };
+
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUploading(true);
+
+    try {
+      const imageUrls = await uploadImages();
+
+      const productData = {
+        ...formData,
+        images: imageUrls,
+        brand: 'BANLUJ',
+        price: parseFloat(formData.price) || 0,
+        rating: parseFloat(formData.rating) || 4.5,
+        discount: formData.discount ? parseInt(formData.discount) : null,
+        createdAt: new Date().toISOString()
+      };
+
+      if (product) {
+        await updateDoc(doc(db, "products", product.id), productData);
+      } else {
+        await addDoc(collection(db, "products"), productData);
+      }
+
+      onSubmit(productData);
+    } catch (error) {
+      console.error("Error saving product:", error);
+      alert('Error al guardar el producto');
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Marca</label>
-          <div className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 font-medium text-amber-600">
-            BANLUJ
-          </div>
-          <input type="hidden" name="brand" value="BANLUJ" />
-        </div>
-        
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Nombre del Producto
+        </Typography>
         <Input
-          label="Nombre del producto*"
+          type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
+          placeholder="Ej: Cama King Size Deluxe"
           required
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descripción Corta
+        </Typography>
         <Input
-          label="Precio*"
-          name="price"
+          type="text"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="Ej: Madera de roble macizo con acabado natural"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descripción Larga
+        </Typography>
+        <textarea
+          name="longDescription"
+          value={formData.longDescription}
+          onChange={handleChange}
+          placeholder="Ej: Esta cama king size está fabricada con los más altos estándares..."
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          rows="5"
+          required
+        />
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Precio (MXN)
+        </Typography>
+        <Input
           type="number"
+          name="price"
           value={formData.price}
           onChange={handleChange}
-          required
-          min="0"
+          placeholder="Ej: 1299.99"
           step="0.01"
+          required
         />
-        
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Descuento (%)
+        </Typography>
         <Input
-          label="Descuento (%)"
-          name="discount"
           type="number"
+          name="discount"
           value={formData.discount}
           onChange={handleChange}
+          placeholder="Ej: 15"
           min="0"
           max="100"
         />
       </div>
-      
-      <Input
-        label="Descripción corta*"
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        required
-      />
-      
-      <Input
-        label="Descripción larga"
-        name="longDescription"
-        value={formData.longDescription}
-        onChange={handleChange}
-        multiline
-        rows={3}
-      />
-      
-      <div className="grid md:grid-cols-3 gap-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Categoría*</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          >
-            {categories.map(cat => (
-              <option key={cat.value} value={cat.value}>{cat.label}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Material*</label>
-          <select
-            name="material"
-            value={formData.material}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          >
-            {materials.map(mat => (
-              <option key={mat.value} value={mat.value}>{mat.label}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Estilo*</label>
-          <select
-            name="style"
-            value={formData.style}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          >
-            {styles.map(style => (
-              <option key={style.value} value={style.value}>{style.label}</option>
-            ))}
-          </select>
-        </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Categoría
+        </Typography>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {categories.map(category => (
+            <option key={category.value} value={category.value}>
+              {category.label}
+            </option>
+          ))}
+        </select>
       </div>
-      
-      <div className="grid md:grid-cols-2 gap-6">
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Material
+        </Typography>
+        <select
+          name="material"
+          value={formData.material}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {materials.map(material => (
+            <option key={material.value} value={material.value}>
+              {material.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Estilo
+        </Typography>
+        <select
+          name="style"
+          value={formData.style}
+          onChange={handleChange}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        >
+          {styles.map(style => (
+            <option key={style.value} value={style.value}>
+              {style.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Dimensiones
+        </Typography>
         <Input
-          label="Dimensiones"
+          type="text"
           name="dimensions"
           value={formData.dimensions}
           onChange={handleChange}
           placeholder="Ej: 200x180 cm"
+          required
         />
-        
-        <Input
-          label="Rating (0-5)"
-          name="rating"
-          type="number"
-          value={formData.rating}
-          onChange={handleChange}
-          min="0"
-          max="5"
-          step="0.1"
-        />
-      </div>
-      
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Imágenes del producto*</label>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {previewImages.map((img, index) => (
-            <div key={index} className="relative">
-              <img 
-                src={img} 
-                alt={`Preview ${index}`} 
-                className="h-24 w-24 rounded-md object-cover"
-              />
-              <button
-                type="button"
-                onClick={() => removeImage(index)}
-                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-              >
-                <Icon name="x" size="sm" />
-              </button>
-            </div>
-          ))}
-          {previewImages.length < 5 && (
-            <label className="h-24 w-24 bg-gray-100 rounded-md flex items-center justify-center cursor-pointer">
-              <Icon name="plus" className="text-gray-400" />
-              <input 
-                type="file" 
-                className="sr-only" 
-                onChange={handleMultipleImagesUpload}
-                accept="image/*"
-                multiple
-              />
-            </label>
-          )}
-        </div>
-        <p className="text-xs text-gray-500">Puedes subir hasta 5 imágenes (primera imagen será la principal)</p>
       </div>
 
       <div>
-        <Typography variant="h3" className="font-medium mb-2">
-          Zonas de envío:
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Calificación
         </Typography>
-        <div className="space-y-4">
-          {formData.shippingZones.map((zone, index) => (
-            <div key={index} className="grid md:grid-cols-2 gap-4">
-              <Input
-                label="Nombre de la zona"
-                value={zone.zone}
-                onChange={(e) => {
-                  const newZones = [...formData.shippingZones];
-                  newZones[index].zone = e.target.value;
-                  setFormData(prev => ({ ...prev, shippingZones: newZones }));
-                }}
-              />
-              <Input
-                label="Precio de envío"
-                type="number"
-                value={zone.price}
-                onChange={(e) => {
-                  const newZones = [...formData.shippingZones];
-                  newZones[index].price = parseFloat(e.target.value) || 0;
-                  setFormData(prev => ({ ...prev, shippingZones: newZones }));
-                }}
-                min="0"
-                step="0.01"
-              />
-            </div>
-          ))}
-        </div>
+        <Input
+          type="number"
+          name="rating"
+          value={formData.rating}
+          onChange={handleChange}
+          placeholder="Ej: 4.5"
+          step="0.1"
+          min="0"
+          max="5"
+          required
+        />
       </div>
-      
+
+      <div>
+        <Typography variant="h3" className="text-lg font-medium mb-2">
+          Imágenes
+        </Typography>
+        <div className="flex items-center justify-between mb-2">
+          <label className="block">
+            <span className="sr-only">Seleccionar imágenes</span>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleMultipleImagesUpload}
+              className="block w-full text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-md file:border-0
+                file:text-sm file:font-semibold
+                file:bg-amber-50 file:text-amber-700
+                hover:file:bg-amber-100"
+            />
+          </label>
+        </div>
+        {previewImages.length > 0 && (
+          <div className="grid grid-cols-3 gap-2">
+            {previewImages.map((img, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={img}
+                  alt={`Previsualización ${index + 1}`}
+                  className="w-full h-24 object-cover rounded-md"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                >
+                  <Icon name="x" size="sm" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="flex justify-end space-x-4 pt-4">
-        <Button 
-          type="button" 
-          variant="secondary" 
+        <Button
+          type="button"
+          variant="secondary"
           onClick={onCancel}
+          disabled={uploading}
         >
           Cancelar
         </Button>
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           variant="primary"
+          disabled={uploading}
         >
-          {product ? 'Guardar cambios' : 'Añadir producto'}
+          {uploading ? 'Guardando...' : (product ? 'Guardar cambios' : 'Añadir producto')}
         </Button>
       </div>
     </form>
