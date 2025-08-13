@@ -27,7 +27,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (!email || !password) {
       setError('Por favor completa todos los campos');
       return;
@@ -40,20 +40,14 @@ const Login = () => {
 
     setIsLoading(true);
 
-    try {
-      const success = await login(email, password);
-      if (success) {
-        navigate('/admin', { replace: true });
-      } else {
-        setAttempts(prev => prev + 1);
-        setError('Credenciales incorrectas');
-      }
-    } catch (err) {
-      setError('Error al conectar con el servidor');
-      console.error('Login error:', err);
-    } finally {
-      setIsLoading(false);
+    const success = await login(email, password);
+    if (success) {
+      navigate('/admin', { replace: true });
+    } else {
+      setAttempts(prev => prev + 1);
+      setError('Credenciales incorrectas');
     }
+    setIsLoading(false);
   };
 
   return (
@@ -71,7 +65,7 @@ const Login = () => {
               Acceso exclusivo para administradores
             </Typography>
           </div>
-          
+
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md flex items-start">
               <Icon name="alert-circle" className="mr-2 mt-0.5 flex-shrink-0" />
@@ -87,7 +81,7 @@ const Login = () => {
               </Typography>
             </div>
           )}
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               label="Correo electrónico"
@@ -99,7 +93,7 @@ const Login = () => {
               autoComplete="username"
               placeholder="ejemplo@dominio.com"
             />
-            
+
             <div className="relative">
               <Input
                 label="Contraseña"
@@ -123,9 +117,9 @@ const Login = () => {
             </div>
 
             <div className="pt-2">
-              <Button 
-                type="submit" 
-                variant="primary" 
+              <Button
+                type="submit"
+                variant="primary"
                 className="w-full flex items-center justify-center"
                 disabled={isLoading || attempts >= 3}
               >
@@ -147,8 +141,8 @@ const Login = () => {
           <div className="mt-6 text-center text-sm text-gray-500">
             <Typography variant="p">
               ¿Problemas para acceder?{' '}
-              <a 
-                href="mailto:soporte@techshop.com" 
+              <a
+                href="mailto:soporte@techshop.com"
                 className="text-blue-600 hover:underline"
                 rel="noopener noreferrer"
               >
