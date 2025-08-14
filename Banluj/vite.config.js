@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/',
+  base: '/', // Ajusta según tu despliegue
   plugins: [react()],
   build: {
     outDir: 'dist',
@@ -13,12 +13,6 @@ export default defineConfig({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
-    }
-  },
-  // Añade esto para evitar problemas de rutas en producción:
-  preview: {
-    headers: {
-      "Cache-Control": "public, max-age=600, immutable"
     }
   }
 });
