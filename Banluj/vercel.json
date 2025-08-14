@@ -1,6 +1,11 @@
 {
+  "functions": {
+    "src/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/:splat" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/dist/index.html" }
   ]
 }
