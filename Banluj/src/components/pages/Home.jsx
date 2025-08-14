@@ -68,7 +68,7 @@ const Home = () => {
       <section className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
         <div className="text-center mb-12 md:mb-16">
           <Typography variant="h2" className="mb-4 text-3xl md:text-4xl font-bold">
-            Bienvenido a Muebles BANLUJ
+            Bienvenido a Muebles BANLUJ lomejor
           </Typography>
           <Typography variant="p" className="max-w-2xl mx-auto text-gray-600 text-lg">
             Descubre nuestra colección exclusiva de camas y cabeceras artesanales
