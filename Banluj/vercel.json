@@ -1,25 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/",
-      "headers": {
-        "Cache-Control": "s-maxage=0, stale-while-revalidate=60"
-      }
-    }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/:splat" },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }

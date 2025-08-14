@@ -8,7 +8,7 @@ import About from './About'; // Importa el nuevo componente
 const carouselItems = [
   {
     image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    alt: 'Cama de diseño premiummmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
+    alt: 'Cama de diseño premiummmmmm',
     title: 'Dormitorios de Ensueño'
   },
   {
@@ -26,7 +26,7 @@ const carouselItems = [
 const featuredProducts = [
   {
     id: 2,
-    name: 'Cabecera Modernaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    name: 'Cabecera Moderna',
     description: 'Diseño contemporáneo en nogal americano',
     price: 599.99,
     image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
