@@ -293,7 +293,7 @@ const ProductDetail = () => {
                 }
               >
                 <Icon name="whatsapp" className="mr-2" />
-                Consultar por WhatsApp
+                Consultar por WhatsApp o por llamada
               </Button>
             </div>
           </div>
