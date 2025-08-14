@@ -92,7 +92,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
       formDataUpload.append('image', image.file);
 
       try {
-        const response = await fetch('src/api/upload-image', {
+        const response = await fetch('/api/upload-image', {
           method: 'POST',
           body: formDataUpload,
         });
