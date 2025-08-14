@@ -12,7 +12,6 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
 export default async function handler(req, res) {
   console.log('Request received:', req.method, req.url, req.headers);
   if (req.method === 'POST') {
