@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/', // Asegúrate que es '/'
+  base: '/',
   plugins: [react()],
   build: {
     outDir: 'dist',
@@ -15,12 +15,10 @@ export default defineConfig({
       }
     }
   },
-  server: {
-    historyApiFallback: {
-      disableDotRule: true,
-      rewrites: [
-        { from: /\/api\/.*$/, to: (context) => context.parsedUrl.pathname }
-      ]
+  // Añade esto para evitar problemas de rutas en producción:
+  preview: {
+    headers: {
+      "Cache-Control": "public, max-age=600, immutable"
     }
   }
-})
+});
