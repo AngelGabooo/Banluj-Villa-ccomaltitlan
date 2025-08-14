@@ -1,0 +1,8 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "dependencies": {
+    "cloudinary": "^1.41.0",
+    "formidable-serverless": "^1.1.1"
+  }
+}

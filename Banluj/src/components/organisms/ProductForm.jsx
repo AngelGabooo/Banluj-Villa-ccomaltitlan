@@ -82,37 +82,37 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     setPreviewImages(newPreviews);
   };
 
-  const uploadImages = async () => {
-    const uploadedUrls = [];
-    for (const image of formData.images) {
-      if (typeof image === 'string') {
-        uploadedUrls.push(image);
-      } else if (image.isNew) {
-        const formDataUpload = new FormData();
-        formDataUpload.append('image', image.file);
+ const uploadImages = async () => {
+  const uploadedUrls = [];
+  for (const image of formData.images) {
+    if (typeof image === 'string') {
+      uploadedUrls.push(image);
+    } else if (image.isNew) {
+      const formDataUpload = new FormData();
+      formDataUpload.append('image', image.file);
 
-        try {
-          const response = await fetch('/api/upload-image', {
-            method: 'POST',
-            body: formDataUpload,
-          });
-          if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
-          }
-          const result = await response.json();
-          if (result.url) {
-            uploadedUrls.push(result.url);
-          } else {
-            throw new Error('No se recibió una URL válida');
-          }
-        } catch (error) {
-          console.error('Error al subir la imagen:', error.message);
-          throw error;
+      try {
+        const response = await fetch('src/api/upload-image', {
+          method: 'POST',
+          body: formDataUpload,
+        });
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
         }
+        const result = await response.json();
+        if (result.url) {
+          uploadedUrls.push(result.url);
+        } else {
+          throw new Error('No se recibió una URL válida');
+        }
+      } catch (error) {
+        console.error('Error al subir la imagen:', error.message);
+        throw error;
       }
     }
-    return uploadedUrls;
-  };
+  }
+  return uploadedUrls;
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
