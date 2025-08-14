@@ -1,4 +1,3 @@
-// pages/api/upload-image.js
 import { v2 as cloudinary } from 'cloudinary';
 import formidable from 'formidable-serverless';
 
@@ -44,6 +43,6 @@ export default async function handler(req, res) {
     }
   } else {
     res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+    res.status(405).json({ error: 'Method Not Allowed' });
   }
 }

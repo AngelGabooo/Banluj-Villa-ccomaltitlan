@@ -86,7 +86,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     const uploadedUrls = [];
     for (const image of formData.images) {
       if (typeof image === 'string') {
-        uploadedUrls.push(image); // Mantener URLs existentes
+        uploadedUrls.push(image);
       } else if (image.isNew) {
         const formDataUpload = new FormData();
         formDataUpload.append('image', image.file);
@@ -96,14 +96,17 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
             method: 'POST',
             body: formDataUpload,
           });
+          if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
+          }
           const result = await response.json();
           if (result.url) {
             uploadedUrls.push(result.url);
           } else {
-            throw new Error('Error al subir la imagen');
+            throw new Error('No se recibió una URL válida');
           }
         } catch (error) {
-          console.error('Error al subir la imagen:', error);
+          console.error('Error al subir la imagen:', error.message);
           throw error;
         }
       }
@@ -136,8 +139,8 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
 
       onSubmit(productData);
     } catch (error) {
-      console.error('Error al guardar el producto:', error);
-      alert('Error al guardar el producto');
+      console.error('Error al guardar el producto:', error.message);
+      alert(`Error al guardar el producto: ${error.message}`);
     } finally {
       setUploading(false);
     }
