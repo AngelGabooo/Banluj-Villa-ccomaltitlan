@@ -10,29 +10,8 @@ import Favorites from './components/pages/Favorites';
 import ProductDetail from './components/pages/ProductDetail';
 import Login from './components/pages/Login';
 import Admin from './components/pages/Admin';
-import Maintenance from './components/pages/Maintenance';
-
-// Variable de control para el modo mantenimiento
-const MAINTENANCE_MODE = true;
 
 const App = () => {
-  // Si está en modo mantenimiento, mostrar solo la página de mantenimiento
-  if (MAINTENANCE_MODE) {
-    return (
-      <AuthProvider>
-        <FavoritesProvider>
-          <Router>
-            <Routes>
-              {/* Sobrescribe todas las rutas con la página de mantenimiento */}
-              <Route path="*" element={<Maintenance />} />
-            </Routes>
-          </Router>
-        </FavoritesProvider>
-      </AuthProvider>
-    );
-  }
-
-  // Código original cuando no está en mantenimiento
   return (
     <AuthProvider>
       <FavoritesProvider>
