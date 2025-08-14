@@ -2,14 +2,25 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  base: '/',
+  base: '/', // Asegúrate que es '/'
   plugins: [react()],
   build: {
-    outDir: 'dist', // Esta es la carpeta que Vite creará automáticamente
+    outDir: 'dist',
     emptyOutDir: true,
-    manifest: true // Genera un manifest.json para mejor cache
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
   },
   server: {
-    historyApiFallback: true // Importante para SPA
+    historyApiFallback: {
+      disableDotRule: true,
+      rewrites: [
+        { from: /\/api\/.*$/, to: (context) => context.parsedUrl.pathname }
+      ]
+    }
   }
 })
