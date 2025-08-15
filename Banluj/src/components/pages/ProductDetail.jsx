@@ -44,7 +44,6 @@ const newProducts = [
     pricesBySize: { Individual: 1950 },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.5,
-    style: "Moderno"
   },
   {
     id: "base_matrimonial_001",
@@ -61,7 +60,6 @@ const newProducts = [
     pricesBySize: { Matrimonial: 2100 },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.7,
-    style: "moderno"
   },
   {
     id: "base_queen_size_001",
@@ -78,7 +76,6 @@ const newProducts = [
     pricesBySize: { "Queen Size": 2200 },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.8,
-    style: "moderno"
   },
   {
     id: "base_queen_size_001",
@@ -95,7 +92,6 @@ const newProducts = [
     pricesBySize: { "Queen Size": 2200 },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.8,
-    style: "moderno"
   },
   {
     id: "cabecera_capitonada_001",
@@ -104,7 +100,7 @@ const newProducts = [
     longDescription: "Transforma tu dormitorio con nuestra cabecera de diseño capitonado, elaborada en resistente madera de pino y finamente tapizada en tela de alta calidad. Su acabado impecable y suave textura aportan un toque sofisticado y acogedor a cualquier espacio. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size, para adaptarse a tus necesidades y brindar el complemento ideal a tu cama. La elección perfecta para quienes buscan elegancia y durabilidad en un solo producto.",
     price: 2400,
     category: "cabeceras",
-    material: "tela",
+    material: "Tela",
     colors: [],
     loadCapacity: null,
     warranty: "1 año",
@@ -118,7 +114,6 @@ const newProducts = [
     },
     images: [cabeImage],
     rating: 4.6,
-    style: "moderno"
   },
   {
       id: "cabecera_capitonada_002",
@@ -141,7 +136,6 @@ const newProducts = [
       },
       images: [cabeI1mage],
       rating: 4.6,
-      style: "moderno"
     },
     {
       id: "cabecera_capitonada_003",
@@ -164,7 +158,6 @@ const newProducts = [
       },
       images: [cabeI2mage],
       rating: 4.6,
-      style: "moderno"
     },
        {
       id: "cabecera_capitonada_004",
@@ -187,7 +180,6 @@ const newProducts = [
       },
       images: [cabeI3mage],
       rating: 4.6,
-      style: "moderno"
     },
   {
     id: "base_tactopiel_individual_001",
@@ -197,7 +189,7 @@ const newProducts = [
     price: 1850,
     category: "camas",
     material: "Tactopiel",
-    colors: ["Chocolate", "Gris", "Negra", "Beige"],
+    colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
     sizes: ["Individual"],
@@ -212,16 +204,14 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
     price: 1950,
     category: "camas",
-    material: "tactopiel",
-    colors: ["Chocolate", "Gris", "Negra", "Beige"],
+    material: "Tactopiel",
+    colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
-    legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Matrimonial"],
     pricesBySize: { Matrimonial: 1950 },
     images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.7,
-    style: "moderno"
   },
   {
     id: "base_tactopiel_queen_size_001",
@@ -230,16 +220,14 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
     price: 2000,
     category: "camas",
-    material: "tactopiel",
-    colors: ["Chocolate", "Gris", "Negra", "Beige"],
+    material: "Tactopiel",
+    colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
-    legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Queen Size"],
     pricesBySize: { "Queen Size": 2000 },
     images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image ],
     rating: 4.8,
-    style: "moderno"
   }
 ];
 

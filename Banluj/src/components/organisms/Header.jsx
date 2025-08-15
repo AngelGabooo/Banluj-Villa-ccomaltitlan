@@ -221,40 +221,7 @@ const Header = () => {
             </Link>
             
             {/* Botón de login/logout - Solo desktop */}
-            <div className="hidden sm:block">
-              {isAdmin ? (
-                <Button 
-                  variant="ghost" 
-                  onClick={logout}
-                  className={`
-                    p-2 sm:p-3 rounded-xl transition-all duration-300 transform hover:scale-110
-                    ${isScrolled 
-                      ? 'hover:bg-gray-100/80 text-gray-700' 
-                      : 'hover:bg-white/40 text-gray-800'
-                    }
-                    shadow-sm hover:shadow-md
-                  `}
-                >
-                  <Icon name="logout" size="lg" className="text-gray-600" />
-                </Button>
-              ) : (
-                <Link to="/login">
-                  <Button 
-                    variant="ghost" 
-                    className={`
-                      p-2 sm:p-3 rounded-xl transition-all duration-300 transform hover:scale-110
-                      ${isScrolled 
-                        ? 'hover:bg-gray-100/80 text-gray-700' 
-                        : 'hover:bg-white/40 text-gray-800'
-                      }
-                      shadow-sm hover:shadow-md
-                    `}
-                  >
-                    <Icon name="login" size="lg" className="text-gray-600" />
-                  </Button>
-                </Link>
-              )}
-            </div>
+          
 
             {/* Botón de menú hamburguesa para móvil */}
             <Button 

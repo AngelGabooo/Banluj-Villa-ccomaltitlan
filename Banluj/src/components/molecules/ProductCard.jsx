@@ -60,7 +60,7 @@ const ProductCard = ({ id, name, description, price, image }) => {
           <Button
             variant="secondary"
             className="flex-1 flex items-center justify-center"
-            onClick={() => window.open(`https://wa.me/+528144384806?text=Hola, estoy interesado en: ${name} - $${price.toFixed(2)} - BANLUJ`, '_blank')}
+            onClick={() => window.open(`https://wa.me/+529181186354?text=Hola, estoy interesado en: ${name} - $${price.toFixed(2)} - BANLUJ`, '_blank')}
           >
             <Icon name="whatsapp" className="mr-2" />
             Comprar

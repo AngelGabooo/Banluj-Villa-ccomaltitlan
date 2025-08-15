@@ -8,22 +8,23 @@ import About from './About';
 import logoImage from '../../assets/imagenes/logo.jpg';
 import logoImage3 from '../../assets/imagenes/logo1.png';
 import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
+import tela1Image from '../../assets/imagenes/madera.webp';
 
 const carouselItems = [
   {
     image: logoImage,
-    alt: 'Cama de diseño premium',
-    title: 'Dormitorios de Ensueño'
+    alt: 'Calidad BANLUJ',
+    title: 'Garantía de hasta 1 Año'
   },
   {
-    image: logoImage,
-    alt: 'Cabecera artesanal',
-    title: 'Cabeceras Hechas a Mano'
+    image: logoImage3,
+    alt: 'Confort garantizado',
+    title: 'Diseñados para tu Comodidad'
   },
   {
-    image: logoImage,
-    alt: 'Detalle de madera tallada',
-    title: 'Artesanía en Cada Detalle'
+    image: tela1Image,
+    alt: 'Atención personalizada',
+    title: 'Trato Directo con el Cliente'
   }
 ];
 
@@ -73,7 +74,6 @@ const Home = () => {
             Bienvenido a Muebles BANLUJ
           </Typography>
           <Typography variant="p" className="max-w-2xl mx-auto text-gray-600 text-lg">
-            Descubre nuestra colección exclusiva de camas y cabeceras artesanales
           </Typography>
         </div>
         

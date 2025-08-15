@@ -54,21 +54,21 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
+                <a href="/productos" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
                   <Icon name="chevron-right" size="sm" className="mr-2 text-amber-600" />
                   Productos
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
+                <a href="/contacto" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
                   <Icon name="chevron-right" size="sm" className="mr-2 text-amber-600" />
-                  Colecciones
+                  Contacto
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
+                <a href="/favoritos" className="text-gray-700 hover:text-gray-900 transition-colors flex items-center">
                   <Icon name="chevron-right" size="sm" className="mr-2 text-amber-600" />
-                  Ofertas
+                  Favoritos
                 </a>
               </li>
             </ul>

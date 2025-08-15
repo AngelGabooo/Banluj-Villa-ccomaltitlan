@@ -274,7 +274,7 @@ const Contact = () => {
                 </div>
                 <div className="relative">
                   <iframe 
-                    src="https://maps.google.com/maps?q=15.22940284191848,-92.5807688999473&z=15&output=embed"
+                     src="https://maps.google.com/maps?q=15.2179090,-92.5767516&z=15&output=embed"
                     width="100%" 
                     height="350" 
                     frameBorder="0" 
