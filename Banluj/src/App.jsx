@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { FavoritesProvider } from './context/FavoritesContext';
@@ -10,6 +9,7 @@ import Favorites from './components/pages/Favorites';
 import ProductDetail from './components/pages/ProductDetail';
 import Login from './components/pages/Login';
 import Admin from './components/pages/Admin';
+import TactopielProducts, { TactopielProductDetail } from './components/pages/TactopielProducts';
 
 const App = () => {
   return (
@@ -24,6 +24,8 @@ const App = () => {
             <Route path="/productos/:id" element={<ProductDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/tactopiel" element={<TactopielProducts />} />
+            <Route path="/tactopiel/:id" element={<TactopielProductDetail />} />
           </Routes>
         </Router>
       </FavoritesProvider>

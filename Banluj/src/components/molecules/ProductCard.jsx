@@ -1,183 +1,79 @@
-// components/molecules/ProductCard.js
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import { useFavorites } from '../../context/FavoritesContext';
-import Modal from '../molecules/Modal';
 
-const ProductCard = ({ product }) => {
-  const navigate = useNavigate();
+const ProductCard = ({ id, name, description, price, image }) => {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
-  const favorite = isFavorite(product.id);
-  const [showInfoModal, setShowInfoModal] = useState(false);
+  const isFav = isFavorite(id);
 
-  const toggleFavorite = () => {
-    if (favorite) {
-      removeFromFavorites(product.id);
+  const handleFavoriteToggle = () => {
+    if (isFav) {
+      removeFromFavorites(id);
     } else {
-      addToFavorites(product);
-    }
-  };
-
-  const hasDetails = product.longDescription && product.dimensions && product.material && product.style;
-
-  const handleViewDetails = () => {
-    if (hasDetails) {
-      navigate(`/productos/${product.id}`);
-    } else {
-      setShowInfoModal(true);
+      addToFavorites({ id, name, description, price, image });
     }
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-amber-50">
-      <div className="relative h-64">
-        <img
-          src={product.images?.[0] || ''}  // URL directa de Cloudinary
-          alt={product.name}
-          className="w-full h-full object-cover"
-        />
-        
-        <div className="absolute top-3 left-3 flex space-x-2">
-          {product.discount && (
-            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-              -{product.discount}%
-            </span>
-          )}
-          <span className="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">
-            {product.rating}★
-          </span>
-        </div>
-        
-        <button
-          onClick={toggleFavorite}
-          className="absolute top-3 right-3 p-2 bg-white/90 rounded-full shadow-md hover:bg-red-100 transition-colors"
-        >
-          <Icon
-            name={favorite ? "heart-filled" : "heart"}
-            className={favorite ? "text-red-500" : "text-gray-400"}
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative">
+      <div className="aspect-w-4 aspect-h-3">
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = '/path/to/fallback-image.jpg'; // Imagen de respaldo si falla
+              console.error(`Error loading image for ${name}`);
+            }}
           />
-        </button>
-      </div>
-      
-      <div className="p-5">
-        <div className="flex justify-between items-start mb-2">
-          <div>
-            <Typography variant="h3" className="text-lg font-bold text-gray-800">
-              {product.name}
+        ) : (
+          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+            <Typography variant="p" className="text-gray-500">
+              Imagen no disponible
             </Typography>
-            <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">
-              BANLUJ
-            </span>
           </div>
-          <Typography variant="p" className="text-lg font-bold text-amber-600">
-            ${product.price.toFixed(2)}
+        )}
+      </div>
+      <div className="p-4">
+        <Typography variant="h3" className="text-lg font-semibold text-gray-800 mb-2">
+          {name}
+        </Typography>
+        <Typography variant="p" className="text-gray-600 text-sm mb-3 line-clamp-2">
+          {description}
+        </Typography>
+        <div className="flex justify-between items-center mb-3">
+          <Typography variant="h4" className="text-amber-600 font-bold">
+            ${price.toFixed(2)}
           </Typography>
         </div>
-        
-        <Typography variant="p" className="text-gray-600 mt-1 mb-3">
-          {product.description}
-        </Typography>
-        
-        <div className="flex items-center text-sm text-gray-500 space-x-4 mb-4">
-          {product.dimensions && (
-            <span className="flex items-center">
-              <Icon name="ruler" className="mr-1" />
-              {product.dimensions}
-            </span>
-          )}
-          {product.material && (
-            <span className="flex items-center">
-              <Icon name="layers" className="mr-1" />
-              {product.material}
-            </span>
-          )}
-        </div>
-        
-        <div className="space-y-2">
+        <div className="flex justify-between items-center gap-2">
+          <Link to={`/productos/${id}`} className="flex-1">
+            <Button variant="primary" className="w-full flex items-center justify-center">
+              <Icon name="eye" className="mr-2" />
+              Ver más
+            </Button>
+          </Link>
           <Button
-            variant="primary"
-            className="w-full flex items-center justify-center space-x-2"
-            onClick={handleViewDetails}
+            variant="secondary"
+            className="flex-1 flex items-center justify-center"
+            onClick={() => window.open(`https://wa.me/+528144384806?text=Hola, estoy interesado en: ${name} - $${price.toFixed(2)} - BANLUJ`, '_blank')}
           >
-            <Icon name="eye" className="text-white" />
-            <span>Ver detalles</span>
+            <Icon name="whatsapp" className="mr-2" />
+            Comprar
           </Button>
-          
-          <Button
-            variant="outline"
-            className="w-full flex items-center justify-center space-x-2"
-            onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${product.price}) - BANLUJ`, '_blank')}
-          >
-            <Icon name="whatsapp" className="text-green-500" />
-            <span>Consultar por WhatsApp</span>
-          </Button>
+         <Button
+  variant="outline"
+  className="absolute top-2 right-2 p-2"
+  onClick={handleFavoriteToggle}
+>
+  <Icon name={isFav ? "heart-filled" : "add"} className="text-red-500" />
+</Button>
         </div>
       </div>
-
-      <Modal
-        isOpen={showInfoModal}
-        onClose={() => setShowInfoModal(false)}
-        title={product.name}
-        hideCloseButton
-        transparentOverlay
-        className="max-w-md"
-      >
-        <div className="text-center px-8 py-6">
-          <div className="mx-auto mb-6">
-            <div className="relative inline-flex">
-              <div className="absolute -inset-2 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full blur opacity-75 animate-pulse"></div>
-              <div className="relative inline-flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 text-white">
-                <Icon name="clock" className="text-2xl" />
-              </div>
-            </div>
-          </div>
-          
-          <Typography variant="h3" className="text-2xl font-bold text-gray-800 mb-3">
-            Próximamente más detalles
-          </Typography>
-          
-          <Typography variant="p" className="text-gray-600 mb-6 mx-auto leading-relaxed">
-            Estamos preparando una descripción completa con imágenes detalladas de{' '}
-            <span className="font-semibold text-amber-600">{product.name}</span>{' '}
-            para que puedas conocerlo mejor.
-          </Typography>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mt-8">
-            <Button
-              variant="primary"
-              onClick={() => setShowInfoModal(false)}
-              className="px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-            >
-              Entendido
-            </Button>
-            
-            <Button
-              variant="outline"
-              onClick={() => {
-                setShowInfoModal(false);
-                window.open(
-                  `https://wa.me/528144384806?text=Hola, tengo dudas sobre: ${product.name} (${product.price}) - BANLUJ`,
-                  '_blank'
-                );
-              }}
-              className="px-6 py-3 rounded-lg border-amber-300 text-amber-600 hover:bg-amber-50 transition-colors"
-            >
-              <Icon name="whatsapp" className="mr-2 text-green-500" />
-              Consultar ahora
-            </Button>
-          </div>
-          
-          <div className="mt-8 pt-6 border-t border-gray-100">
-            <p className="text-xs text-gray-400">
-              ¿Necesitas ayuda inmediata? Llámanos al{' '}
-              <span className="text-amber-600 font-medium">81 4438 4806</span>
-            </p>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 };

@@ -1,194 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import MainTemplate from '../templates/MainTemplate';
+import ProductGrid from '../organisms/ProductGrid';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
-import logoImage3 from '../../assets/imagenes/logo1.png';
-import dormirImage from '../../assets/imagenes/dormir.png';
-import patasImage from '../../assets/imagenes/patas.png';
 import negroImage from '../../assets/imagenes/negro.webp';
 import negro1Image from '../../assets/imagenes/negro1.webp';
 import negro2Image from '../../assets/imagenes/negro2.webp';
 import chocoImage from '../../assets/imagenes/chocholayte.webp';
 import pielImage from '../../assets/imagenes/camapiel.png';
+import logoImage3 from '../../assets/imagenes/logo1.png';
+import dormirImage from '../../assets/imagenes/dormir.png';
+import patasImage from '../../assets/imagenes/patas.png';
 import piel1Image from '../../assets/imagenes/tactopiel1.png';
 import piel2Image from '../../assets/imagenes/tactopiel.png';
-import telaImage from '../../assets/imagenes/telacafe.webp';
-import tela1Image from '../../assets/imagenes/madera.webp';
-import cabeImage from '../../assets/imagenes/cabe.webp';
-import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
-import cabeI2mage from '../../assets/imagenes/cabechoco.webp';
-import cabeI3mage from '../../assets/imagenes/cabebeige.webp';
+import piel3Image from '../../assets/imagenes/tactopielnegro.webp';
+import piel4Image from '../../assets/imagenes/tactopielchoco.webp';
 import { useFavorites } from '../../context/FavoritesContext';
 
 const shippingZones = [
-  { id: 1, name: 'Tapachula', price: 0 },
+  { id: 1, name: 'Mapastepec - Tapachula', price: 0 },
   { id: 2, name: 'Mapastepec - Tonalá', price: 300 },
   { id: 3, name: 'Fuera de región', price: 500 },
 ];
 
-const newProducts = [
-  {
-    id: "base_individual_001",
-    name: "Base Individual",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 1950,
-    category: "camas",
-    material: "Tela",
-    colors: ["Chocolate", "Gris"],
-    loadCapacity: 500,
-    warranty: "1 año",
-    sizes: ["Individual"],
-    pricesBySize: { Individual: 1950 },
-    images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
-    rating: 4.5,
-    style: "Moderno"
-  },
-  {
-    id: "base_matrimonial_001",
-    name: "Base Matrimonial",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 2100,
-    category: "camas",
-    material: "Tela",
-    colors: ["Chocolate", "Gris"],
-    loadCapacity: 500,
-    warranty: "1 año",
-    sizes: ["Matrimonial"],
-    pricesBySize: { Matrimonial: 2100 },
-    images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
-    rating: 4.7,
-    style: "moderno"
-  },
-  {
-    id: "base_queen_size_001",
-    name: "Base Queen Size",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 2200,
-    category: "camas",
-    material: "Tela",
-    colors: ["Chocolate", "Gris"],
-    loadCapacity: 500,
-    warranty: "1 año",
-    sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2200 },
-    images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
-    rating: 4.8,
-    style: "moderno"
-  },
-  {
-    id: "base_queen_size_001",
-    name: "Base Queen Size",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 2200,
-    category: "camas",
-    material: "Tela",
-    colors: ["Chocolate", "Gris"],
-    loadCapacity: 500,
-    warranty: "1 año",
-    sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2200 },
-    images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
-    rating: 4.8,
-    style: "moderno"
-  },
-  {
-    id: "cabecera_capitonada_001",
-    name: "Cabecera Capitonada",
-    description: "Cabecera elegante con diseño capitonado, perfecta para realzar el estilo de tu habitación.",
-    longDescription: "Transforma tu dormitorio con nuestra cabecera de diseño capitonado, elaborada en resistente madera de pino y finamente tapizada en tela de alta calidad. Su acabado impecable y suave textura aportan un toque sofisticado y acogedor a cualquier espacio. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size, para adaptarse a tus necesidades y brindar el complemento ideal a tu cama. La elección perfecta para quienes buscan elegancia y durabilidad en un solo producto.",
-    price: 2400,
-    category: "cabeceras",
-    material: "tela",
-    colors: [],
-    loadCapacity: null,
-    warranty: "1 año",
-    legs: null,
-    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-    pricesBySize: {
-      Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
-    },
-    images: [cabeImage],
-    rating: 4.6,
-    style: "moderno"
-  },
-  {
-      id: "cabecera_capitonada_002",
-      name: "Cabecera Capitonada Negra",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI1mage],
-      rating: 4.6,
-      style: "moderno"
-    },
-    {
-      id: "cabecera_capitonada_003",
-      name: "Cabecera Capitonada",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI2mage],
-      rating: 4.6,
-      style: "moderno"
-    },
-       {
-      id: "cabecera_capitonada_004",
-      name: "Cabecera Capitonada",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI3mage],
-      rating: 4.6,
-      style: "moderno"
-    },
+export const tactopielProducts = [
   {
     id: "base_tactopiel_individual_001",
     name: "Base Tactopiel Individual",
@@ -196,14 +32,16 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
     price: 1850,
     category: "camas",
-    material: "Tactopiel",
+    material: "tactopiel",
     colors: ["Chocolate", "Gris", "Negra", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
+    legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Individual"],
     pricesBySize: { Individual: 1850 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
+    images: [piel3Image, negro2Image, chocoImage, pielImage],
     rating: 4.5,
+    style: "moderno"
   },
   {
     id: "base_tactopiel_matrimonial_001",
@@ -219,7 +57,7 @@ const newProducts = [
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Matrimonial"],
     pricesBySize: { Matrimonial: 1950 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
+    images: [piel1Image, negro1Image, negro2Image, piel2Image],
     rating: 4.7,
     style: "moderno"
   },
@@ -237,13 +75,190 @@ const newProducts = [
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Queen Size"],
     pricesBySize: { "Queen Size": 2000 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image ],
+    images: [piel4Image, negro1Image, negro2Image, chocoImage, pielImage],
     rating: 4.8,
     style: "moderno"
   }
 ];
 
-const ProductDetail = () => {
+const TactopielProducts = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [sortBy, setSortBy] = useState('name');
+  const [isLoading, setIsLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState([]);
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+
+  useEffect(() => {
+    setAllProducts(tactopielProducts);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm, sortBy, selectedColor]);
+
+  const sortProducts = (products) => {
+    return [...products].sort((a, b) => {
+      switch (sortBy) {
+        case 'price-low': return a.price - b.price;
+        case 'price-high': return b.price - a.price;
+        case 'rating': return b.rating - a.rating;
+        case 'name':
+        default: return a.name.localeCompare(b.name);
+      }
+    });
+  };
+
+  const filteredProducts = sortProducts(allProducts.filter(product => {
+    const matchesSearch = 
+      !searchTerm || 
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesColor = !selectedColor || product.colors.includes(selectedColor);
+    return matchesSearch && matchesColor;
+  })).map(product => ({
+    ...product,
+    image: product.images && product.images.length > 0 ? product.images[0] : null
+  }));
+
+  return (
+    <MainTemplate>
+      <div className="relative bg-gradient-to-br from-amber-800 to-amber-900 py-20 px-4 text-white mt-24">
+        <div className="container mx-auto text-center">
+          <div className="mb-4">
+            <span className="inline-block bg-white text-amber-800 px-4 py-1 rounded-full text-sm font-bold mb-2">
+              COLECCIÓN TACTOPIEL
+            </span>
+          </div>
+          <Typography variant="h1" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            Camas Tactopiel BANLUJ
+          </Typography>
+          <Typography variant="p" className="text-xl text-amber-100 max-w-2xl mx-auto">
+            Elegancia y durabilidad en cada diseño
+          </Typography>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8 bg-white rounded-xl shadow-md p-6">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Icon name="search" className="text-gray-400" />
+            </div>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar camas Tactopiel..."
+              className="block w-full pl-10 pr-3 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-lg"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+              >
+                <Icon name="x" className="text-gray-400 hover:text-gray-600" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="mb-8 bg-white rounded-xl shadow-md overflow-hidden">
+          <details open className="group">
+            <summary className="list-none flex justify-between items-center p-6 cursor-pointer">
+              <Typography variant="h3" className="text-xl font-semibold text-gray-800">
+                Filtros
+              </Typography>
+              <Icon 
+                name="chevron-down" 
+                className="transform group-open:rotate-180 transition-transform text-gray-500" 
+              />
+            </summary>
+            
+            <div className="px-6 pb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Color
+                </label>
+                <select
+                  value={selectedColor}
+                  onChange={(e) => setSelectedColor(e.target.value)}
+                  className="block w-full p-2 border border-gray-300 rounded-md"
+                >
+                  <option value="">Todos los colores</option>
+                  {tactopielProducts[0].colors.map((color) => (
+                    <option key={color} value={color}>
+                      {color}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+          <Typography variant="p" className="text-gray-600">
+            Mostrando {filteredProducts.length} camas Tactopiel
+          </Typography>
+          
+          <div className="flex items-center space-x-4">
+            <label className="text-sm font-medium text-gray-700">Ordenar por:</label>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="block w-full md:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-amber-500 focus:border-amber-500 rounded-lg"
+            >
+              {sortOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+          </div>
+        ) : (
+          <>
+            {filteredProducts.length > 0 ? (
+              <ProductGrid products={filteredProducts} />
+            ) : (
+              <div className="text-center py-16 bg-white rounded-xl shadow-sm">
+                <Icon name="search-off" className="mx-auto text-4xl text-gray-400 mb-4" />
+                <Typography variant="h3" className="text-xl font-medium text-gray-700 mb-2">
+                  No encontramos camas Tactopiel
+                </Typography>
+                <Typography variant="p" className="text-gray-500 mb-6">
+                  Prueba ajustando tus filtros o términos de búsqueda
+                </Typography>
+                <Button
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedColor('');
+                  }}
+                  variant="primary"
+                >
+                  Limpiar filtros
+                </Button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </MainTemplate>
+  );
+};
+
+export default TactopielProducts;
+
+const TactopielProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedZone, setSelectedZone] = useState(shippingZones[0].id);
@@ -251,32 +266,16 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState('Individual');
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedColor, setSelectedColor] = useState('Chocolate');
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
-
-  const getColorIndex = (color) => {
-    switch (color) {
-      case 'Chocolate':
-        return 4; // Índice de chocoImage
-      case 'Gris':
-        return 0; // Índice de dormirImage (ajustar si tienes imagen específica para Gris)
-      case 'Negra':
-        return 3; // Índice de negroImage
-      case 'Beige':
-        return 5; // Índice de pielImage
-      default:
-        return 0; // Fallback a logoImage3
-    }
-  };
 
   useEffect(() => {
     const loadProduct = () => {
       setIsLoading(true);
-      const foundProduct = newProducts.find(p => p.id === id);
+      const foundProduct = tactopielProducts.find(p => p.id === id);
       if (foundProduct) {
         setProduct(foundProduct);
         setSelectedColor(foundProduct.colors ? foundProduct.colors[0] : '');
-        setCurrentImageIndex(foundProduct.colors ? getColorIndex(foundProduct.colors[0]) : 0);
       } else {
         setProduct(null);
       }
@@ -301,8 +300,8 @@ const ProductDetail = () => {
       <MainTemplate>
         <div className="container mx-auto px-4 py-12 text-center">
           <Typography variant="h2">Producto no encontrado</Typography>
-          <Button onClick={() => navigate('/productos')} className="mt-4">
-            Volver a productos
+          <Button onClick={() => navigate('/tactopiel')} className="mt-4">
+            Volver a Tactopiel
           </Button>
         </div>
       </MainTemplate>
@@ -357,6 +356,21 @@ const ProductDetail = () => {
   const selectedShipping = shippingZones.find((z) => z.id === selectedZone);
   const totalPrice = getPrice() + selectedShipping.price;
 
+  const getColorImage = () => {
+    switch (selectedColor) {
+      case 'Chocolate':
+        return chocoImage;
+      case 'Gris':
+        return negro1Image;
+      case 'Negra':
+        return negro2Image;
+      case 'Beige':
+        return pielImage;
+      default:
+        return negroImage;
+    }
+  };
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
   };
@@ -394,8 +408,8 @@ const ProductDetail = () => {
           <div className="relative">
             <div className="aspect-w-1 aspect-h-1 rounded-xl overflow-hidden bg-gray-100">
               <img
-                src={product.images[currentImageIndex] || ''}
-                alt={product.name}
+                src={getColorImage()}
+                alt={`${product.name} - ${selectedColor}`}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -403,7 +417,7 @@ const ProductDetail = () => {
             <div className="grid grid-cols-4 gap-2 mt-4">
               {product.images.map((img, index) => (
                 <button
-                  key={`${product.id}-image-${index}`}
+                  key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`aspect-square rounded-md overflow-hidden ${
                     currentImageIndex === index ? 'ring-2 ring-amber-500' : ''
@@ -529,9 +543,7 @@ const ProductDetail = () => {
                 <select
                   value={selectedColor}
                   onChange={(e) => {
-                    const newColor = e.target.value;
-                    setSelectedColor(newColor);
-                    setCurrentImageIndex(getColorIndex(newColor));
+                    setSelectedColor(e.target.value);
                   }}
                   className="block w-full p-2 border border-gray-300 rounded-md"
                 >
@@ -599,4 +611,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export { TactopielProductDetail };

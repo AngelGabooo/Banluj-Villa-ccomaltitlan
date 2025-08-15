@@ -4,30 +4,31 @@ import ProductGrid from '../organisms/ProductGrid';
 import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
-import { db } from '../../firebase';
-import { collection, getDocs } from "firebase/firestore";
+import logoImage3 from '../../assets/imagenes/logo1.png';
+import dormirImage from '../../assets/imagenes/dormir.png';
+import patasImage from '../../assets/imagenes/patas.png';
+import negroImage from '../../assets/imagenes/negro.webp';
+import { tactopielProducts } from '../pages/TactopielProducts';
+import telaImage from '../../assets/imagenes/telacafe.webp';
+import cabeImage from '../../assets/imagenes/cabe.webp';
+import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
+import cabeI2mage from '../../assets/imagenes/cabechoco.webp';
+import cabeI3mage from '../../assets/imagenes/cabebeige.webp';
 
 const categories = [
   { id: 'all', name: 'Todos', icon: 'all_inclusive' },
   { id: 'camas', name: 'Camas', icon: 'bed' },
-  { id: 'cabeceras', name: 'Cabeceras', icon: 'headset' },
-  { id: 'conjuntos', name: 'Conjuntos', icon: 'layers' }
+  { id: 'cabeceras', name: 'Cabeceras', icon: 'headset' }
 ];
 
 const materials = [
   { id: 'all', name: 'Todos' },
-  { id: 'madera', name: 'Madera' },
-  { id: 'metal', name: 'Metal' },
   { id: 'tela', name: 'Tela' },
-  { id: 'cuero', name: 'Cuero' }
+  { id: 'tactopiel', name: 'Tactopiel' }
 ];
 
 const styles = [
-  { id: 'all', name: 'Todos' },
-  { id: 'moderno', name: 'Moderno' },
-  { id: 'clasico', name: 'Clásico' },
-  { id: 'rustico', name: 'Rústico' },
-  { id: 'industrial', name: 'Industrial' }
+  { id: 'all', name: 'Todos' }
 ];
 
 const sortOptions = [
@@ -35,6 +36,155 @@ const sortOptions = [
   { value: 'price-low', label: 'Precio: Menor a Mayor' },
   { value: 'price-high', label: 'Precio: Mayor a Menor' },
   { value: 'rating', label: 'Mejor Valorados' }
+];
+
+const newProducts = [
+  {
+    id: "base_individual_001",
+    name: "Base Individual",
+    description: "Base de cama individual, robusta y elegante, ideal para espacios pequeños.",
+    longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
+    price: 1950,
+    category: "camas",
+    material: "tela",
+    colors: ["Chocolate", "Gris"],
+    loadCapacity: 500,
+    warranty: "1 año",
+    legs: { count: 6, types: { plastic: 4, metal: 2 } },
+    sizes: ["Individual"],
+    pricesBySize: { Individual: 1950 },
+    images: [logoImage3, dormirImage, patasImage],
+    rating: 4.5,
+    style: "moderno"
+  },
+  {
+    id: "base_matrimonial_001",
+    name: "Base Matrimonial",
+    description: "Base de cama matrimonial, perfecta para parejas con diseño funcional.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
+    price: 2100,
+    category: "camas",
+    material: "tela",
+    colors: ["Chocolate", "Gris"],
+    loadCapacity: 500,
+    warranty: "1 año",
+    legs: { count: 6, types: { plastic: 4, metal: 2 } },
+    sizes: ["Matrimonial"],
+    pricesBySize: { Matrimonial: 2100 },
+    images: [logoImage3, dormirImage, patasImage],
+    rating: 4.7,
+    style: "moderno"
+  },
+  {
+    id: "base_queen_size_001",
+    name: "Base Queen Size",
+    description: "Base de cama Queen Size, ideal para un descanso espacioso y cómodo.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
+    price: 2200,
+    category: "camas",
+    material: "tela",
+    colors: ["Chocolate", "Gris"],
+    loadCapacity: 500,
+    warranty: "1 año",
+    legs: { count: 6, types: { plastic: 4, metal: 2 } },
+    sizes: ["Queen Size"],
+    pricesBySize: { "Queen Size": 2200 },
+    images: [logoImage3, dormirImage, patasImage],
+    rating: 4.8,
+    style: "moderno"
+  },
+  {
+    id: "cabecera_capitonada_001",
+    name: "Cabecera Capitonada",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2550,
+      "Queen Size": 2700,
+      "King Size": 3800
+    },
+    images: [cabeImage],
+    rating: 4.6,
+    style: "moderno"
+  },
+  {
+    id: "cabecera_capitonada_002",
+    name: "Cabecera Capitonada Negra",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2550,
+      "Queen Size": 2700,
+      "King Size": 3800
+    },
+    images: [cabeI1mage],
+    rating: 4.6,
+    style: "moderno"
+  },
+  {
+    id: "cabecera_capitonada_003",
+    name: "Cabecera Capitonada",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2550,
+      "Queen Size": 2700,
+      "King Size": 3800
+    },
+    images: [cabeI2mage],
+    rating: 4.6,
+    style: "moderno"
+  },
+  {
+    id: "cabecera_capitonada_004",
+    name: "Cabecera Capitonada",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2550,
+      "Queen Size": 2700,
+      "King Size": 3800
+    },
+    images: [cabeI3mage],
+    rating: 4.6,
+    style: "moderno"
+  }
 ];
 
 const Products = () => {
@@ -47,22 +197,9 @@ const Products = () => {
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true);
-      try {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        const productsList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setAllProducts(productsList);
-      } catch (error) {
-        console.error("Error loading products:", error);
-      }
-      setIsLoading(false);
-    };
-
-    loadProducts();
+    // Combinamos newProducts con tactopielProducts
+    setAllProducts([...newProducts, ...tactopielProducts]);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -98,6 +235,9 @@ const Products = () => {
       selectedStyle === 'all' || product.style === selectedStyle;
     
     return matchesSearch && matchesCategory && matchesMaterial && matchesStyle;
+  })).map(product => ({
+    ...product,
+    image: product.images && product.images.length > 0 ? product.images[0] : null
   }));
 
   return (

@@ -2,22 +2,26 @@ import React from 'react';
 import MainTemplate from '../templates/MainTemplate';
 import Carousel from '../organisms/Carousel';
 import ProductGrid from '../organisms/ProductGrid';
-import Typography from '../atoms/Typography';
-import About from './About'; // Importa el nuevo componente
+import Typography from '../atoms/Typography'; // Solo una vez, como átomo
+import WhereWeAre from '../organisms/WhereWeAre'; // Importamos WhereWeAre como organismo
+import About from './About';
+import logoImage from '../../assets/imagenes/logo.jpg';
+import logoImage3 from '../../assets/imagenes/logo1.png';
+import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
 
 const carouselItems = [
   {
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-    alt: 'Cama de diseño premiummmmmm',
+    image: logoImage,
+    alt: 'Cama de diseño premium',
     title: 'Dormitorios de Ensueño'
   },
   {
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    image: logoImage,
     alt: 'Cabecera artesanal',
     title: 'Cabeceras Hechas a Mano'
   },
   {
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+    image: logoImage,
     alt: 'Detalle de madera tallada',
     title: 'Artesanía en Cada Detalle'
   }
@@ -25,35 +29,33 @@ const carouselItems = [
 
 const featuredProducts = [
   {
-    id: 2,
-    name: 'Cabecera Moderna',
-    description: 'Diseño contemporáneo en nogal americano',
-    price: 599.99,
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+    id: "base_individual_001",
+    name: "Base Individual",
+    description: "Base de cama individual, robusta y elegante, ideal para espacios pequeños.",
+    price: 1850,
+    image: logoImage3
   },
   {
-    id: 2,
-    name: 'Cabecera Moderna',
-    description: 'Diseño contemporáneo en nogal americano',
-    price: 599.99,
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+    id: "base_matrimonial_001",
+    name: "Base Matrimonial",
+    description: "Base de cama matrimonial, perfecta para parejas con diseño funcional.",
+    price: 1950,
+    image: logoImage3
   },
   {
-    id: 2,
-    name: 'Cabecera Moderna',
-    description: 'Diseño contemporáneo en nogal americano',
-    price: 599.99,
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+    id: "base_queen_size_001",
+    name: "Base Queen Size",
+    description: "Base de cama Queen Size, ideal para un descanso espacioso y cómodo.",
+    price: 2000,
+    image: logoImage3
   },
   {
-    id: 2,
-    name: 'Cabecera Moderna',
-    description: 'Diseño contemporáneo en nogal americano',
-    price: 599.99,
-    image: 'https://images.unsplash.com/photo-1617325247661-675ab4b64ae2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
-  },
-
-  
+    id: "cabecera_capitonada_001",
+    name: "Cabecera Capitonada",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    price: 2400,
+    image: cabeI1mage
+  }
 ];
 
 const Home = () => {
@@ -68,7 +70,7 @@ const Home = () => {
       <section className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
         <div className="text-center mb-12 md:mb-16">
           <Typography variant="h2" className="mb-4 text-3xl md:text-4xl font-bold">
-            Bienvenido a Muebles BANLUJ lomejor
+            Bienvenido a Muebles BANLUJ
           </Typography>
           <Typography variant="p" className="max-w-2xl mx-auto text-gray-600 text-lg">
             Descubre nuestra colección exclusiva de camas y cabeceras artesanales
@@ -81,8 +83,10 @@ const Home = () => {
         <ProductGrid products={featuredProducts} />
       </section>
 
-      {/* Nueva sección "Sobre Nosotros" */}
+      {/* Sección "Sobre Nosotros" */}
       <About />
+      {/* Sección "En Donde Nos Encontramos" con mapas */}
+      <WhereWeAre />
     </MainTemplate>
   );
 };
