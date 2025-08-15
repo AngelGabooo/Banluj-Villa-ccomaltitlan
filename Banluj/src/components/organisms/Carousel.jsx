@@ -44,7 +44,7 @@ const Carousel = ({ items, interval = 5000 }) => {
               <Button 
                 variant="primary" 
                 size="lg"
-                className="bg-stone-100 text-black shadow-lg hover:shadow-xl hover:bg-stone-50 transition-all duration-300"
+                className="bg-stone-100 text-black font-bold shadow-lg hover:shadow-xl hover:bg-stone-50 transition-all duration-300"
                 onClick={() => navigate('/productos')}
               >
                 Ver productos
