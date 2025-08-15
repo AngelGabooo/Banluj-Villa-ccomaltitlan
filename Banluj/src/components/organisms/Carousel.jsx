@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // <- Importa useNavigate
 import Button from '../atoms/Button';
 import Typography from '../atoms/Typography';
 
 const Carousel = ({ items, interval = 5000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate(); // <- Hook para navegación
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -37,18 +39,22 @@ const Carousel = ({ items, interval = 5000 }) => {
               >
                 {item.title}
               </Typography>
+
+              {/* Botón con color crema más bajito y navegación */}
               <Button 
                 variant="primary" 
                 size="lg"
-                className="shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-stone-100 text-black shadow-lg hover:shadow-xl hover:bg-stone-50 transition-all duration-300"
+                onClick={() => navigate('/productos')}
               >
                 Ver productos
               </Button>
+
             </div>
           </div>
         </div>
       ))}
-      
+
       {/* Indicadores */}
       <div className="absolute bottom-8 left-0 right-0 flex justify-center space-x-2">
         {items.map((_, index) => (
