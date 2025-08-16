@@ -50,14 +50,14 @@ const featuredProducts = [
     id: "cabecera_capitonada_005",
     name: "Cabecera Capitonada en Tacto Piel",
     description: "Perfecta para mejorar tu hogar, con diseño funcional y acabado en tacto piel.",
-    price: 2400,
+    price: 1200,
     image: cabeceraImage
   },
   {
     id: "cabecera_capitonada_001",
     name: "Cabecera Capitonada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños y acabado en tela.",
-    price: 1200,
+    price: 2400,
     image: cabeImage
   }
 ];
