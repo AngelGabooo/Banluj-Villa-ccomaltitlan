@@ -43,7 +43,7 @@ export const tactopielProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Individual"],
-    pricesBySize: { Individual: 1850 },
+    pricesBySize: { Individual: 1800 },
     images: [piel3Image, negro2Image, chocoImage, pielImage],
     rating: 4.5,
     style: "moderno"
@@ -61,7 +61,7 @@ export const tactopielProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Matrimonial"],
-    pricesBySize: { Matrimonial: 1950 },
+    pricesBySize: { Matrimonial: 1900 },
     images: [piel1Image, negro1Image, negro2Image, piel2Image],
     rating: 4.7,
     style: "moderno"
@@ -79,7 +79,7 @@ export const tactopielProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size":   2000 },
+    pricesBySize: { "Queen Size":   1950 },
     images: [piel4Image, negro1Image, negro2Image, chocoImage, pielImage],
     rating: 4.8,
     style: "moderno"
@@ -90,7 +90,7 @@ export const tactopielProducts = [
       name: "Cabecera Capitonada en Tacto Piel",
       description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
       description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
-      price: 1350,
+      price: 1200,
       category: "cabeceras",
       material: "tela",
       colors: [],
