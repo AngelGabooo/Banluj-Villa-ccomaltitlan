@@ -5,8 +5,8 @@ import Button from '../atoms/Button';
 // Importar imágenes locales
 import tela1Image from '../../assets/imagenes/madera.webp';
 import negroImage from '../../assets/imagenes/negro.webp';
-import cabeImage from '../../assets/imagenes/cabenegro.webp';
-import negro1Image from '../../assets/imagenes/negro1.webp';
+import negro1Image from '../../assets/imagenes/negro1.png';
+import capitoImage from '../../assets/imagenes/capitonadacafe.png';
 
 const About = () => {
   return (
@@ -33,7 +33,7 @@ const About = () => {
               </div>
               <div className="rounded-xl overflow-hidden shadow-lg">
                 <img 
-                  src={cabeImage} 
+                  src={capitoImage} 
                   alt="Cabecera color negro" 
                   className="w-full h-64 md:h-80 object-cover"
                 />
@@ -56,7 +56,7 @@ const About = () => {
             
             <Typography variant="p" className="text-gray-600">
               En BANLUJ nos hemos dedicado a transformar espacios con muebles que combinan tradición y modernidad. 
-              Mantenemos viva la artesanía de siempre, sumando técnicas innovadoras para crear piezas que no solo destacan por su belleza, sino también por su resistencia y funcionalidad. 
+              Mantenemos viva la comunidad de siempre, sumando técnicas innovadoras para crear piezas que no solo destacan por su belleza, sino también por su resistencia y funcionalidad. 
               Cada cama y cabecera que fabricamos lleva impresa nuestra herencia de calidad y compromiso.
             </Typography>
             
@@ -83,7 +83,7 @@ const About = () => {
                   </div>
                 </div>
                 <Typography variant="p" className="text-gray-600">
-                  Hecho a mano por artesanos
+                  Productos de alta calidad
                 </Typography>
               </div>
             </div>

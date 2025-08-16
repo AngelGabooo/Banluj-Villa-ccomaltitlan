@@ -5,8 +5,10 @@ import Typography from '../atoms/Typography';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import negroImage from '../../assets/imagenes/negro.webp';
-import negro1Image from '../../assets/imagenes/negro1.webp';
-import negro2Image from '../../assets/imagenes/negro2.webp';
+import negro1Image from '../../assets/imagenes/negro1.png';
+
+import negro2Image from '../../assets/imagenes/negro2.png';
+
 import chocoImage from '../../assets/imagenes/chocholayte.webp';
 import pielImage from '../../assets/imagenes/camapiel.png';
 import logoImage3 from '../../assets/imagenes/logo1.png';
@@ -14,7 +16,8 @@ import dormirImage from '../../assets/imagenes/dormir.png';
 import patasImage from '../../assets/imagenes/patas.png';
 import piel1Image from '../../assets/imagenes/tactopiel1.png';
 import piel2Image from '../../assets/imagenes/tactopiel.png';
-import piel3Image from '../../assets/imagenes/tactopielnegro.webp';
+import piel3Image from '../../assets/imagenes/tactopielnegro.png';
+
 import piel4Image from '../../assets/imagenes/tactopielchoco.webp';
 import { useFavorites } from '../../context/FavoritesContext';
 import cabeceraImage from '../../assets/imagenes/cabeceratacto.png';
@@ -87,7 +90,7 @@ export const tactopielProducts = [
   },
   {
       id: "cabecera_capitonada_005",
-      name: "Cabecera Capitonada en Tacto Piel",
+      name: "Cabecera en Tacto Piel",
       description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
       description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
       price: 1200,
@@ -110,7 +113,7 @@ export const tactopielProducts = [
     },
      {
       id: "cabecera_capitonada_006",
-      name: "Cabecera Capitonada en Tacto Piel",
+      name: "Cabecera en Tacto Piel",
       description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
       description: "Base de cama king Size, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
       price: 1800,
@@ -133,7 +136,7 @@ export const tactopielProducts = [
     },
       {
       id: "cabecera_capitonada_007",
-      name: "Cabecera Capitonada en Tacto Piel",
+      name: "Cabecera en Tacto Piel",
       description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
       description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
       price: 1350,

@@ -8,9 +8,9 @@ import logoImage3 from '../../assets/imagenes/logo1.png';
 import dormirImage from '../../assets/imagenes/dormir.png';
 import patasImage from '../../assets/imagenes/patas.png';
 import negroImage from '../../assets/imagenes/negro.webp';
-import negro1Image from '../../assets/imagenes/negro1.webp';
-import negro2Image from '../../assets/imagenes/negro2.webp';
-import chocoImage from '../../assets/imagenes/chocholayte.webp';
+import negro1Image from '../../assets/imagenes/negro1.png';
+import negro2Image from '../../assets/imagenes/negro2.png';
+import chocoImage from '../../assets/imagenes/chocholayte.png';
 import pielImage from '../../assets/imagenes/camapiel.png';
 import piel1Image from '../../assets/imagenes/tactopiel1.png';
 import piel2Image from '../../assets/imagenes/tactopiel.png';
@@ -50,56 +50,72 @@ const newProducts = [
     colors: ["Chocolate", "Gris"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Individual"],
-    pricesBySize: { Individual: 1900 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.5,
   },
   {
     id: "base_matrimonial_001",
     name: "Base Matrimonial",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
+    description: "Base de cama matrimonial, robusta y sofisticada, ideal para parejas.",
+    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama matrimonial, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
     price: 2000,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Matrimonial"],
-    pricesBySize: { Matrimonial: 2000 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.7,
   },
   {
     id: "base_queen_size_001",
     name: "Base Queen Size",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
+    description: "Base de cama Queen Size, robusta y sofisticada, ideal para un descanso espacioso.",
+    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama Queen Size, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
     price: 2100,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2100 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.8,
   },
   {
     id: "base_queen_size_002",
     name: "Base Queen Size",
-    description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
-    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
+    description: "Base de cama Queen Size, robusta y sofisticada, ideal para un descanso espacioso.",
+    longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama Queen Size, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
     price: 2100,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2100 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
     images: [logoImage3, dormirImage, patasImage, negroImage, telaImage],
     rating: 4.8,
   },
@@ -202,8 +218,12 @@ const newProducts = [
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Individual"],
-    pricesBySize: { Individual: 1800 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1800,
+      Matrimonial: 1900,
+      "Queen Size": 1950,
+    },
     images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.5,
   },
@@ -218,8 +238,12 @@ const newProducts = [
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Matrimonial"],
-    pricesBySize: { Matrimonial: 1900 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1800,
+      Matrimonial: 1900,
+      "Queen Size": 1950,
+    },
     images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.7,
   },
@@ -234,8 +258,12 @@ const newProducts = [
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
     loadCapacity: 500,
     warranty: "1 año",
-    sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 1950 },
+    sizes: ["Individual", "Matrimonial", "Queen Size"],
+    pricesBySize: {
+      Individual: 1800,
+      Matrimonial: 1900,
+      "Queen Size": 1950,
+    },
     images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.8,
   },
@@ -246,7 +274,7 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 1200,
     category: "cabeceras",
-    material: "Tela",
+    material: "Tactopiel",
     colors: [],
     loadCapacity: null,
     warranty: "1 año",
@@ -268,7 +296,7 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 1200,
     category: "cabeceras",
-    material: "Tela",
+    material: "Tactopiel",
     colors: [],
     loadCapacity: null,
     warranty: "1 año",
@@ -290,7 +318,7 @@ const newProducts = [
     longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 1200,
     category: "cabeceras",
-    material: "Tela",
+    material: "Tactopiel",
     colors: [],
     loadCapacity: null,
     warranty: "1 año",
@@ -314,7 +342,7 @@ const ProductDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSize, setSelectedSize] = useState('Individual');
+  const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
@@ -339,6 +367,7 @@ const ProductDetail = () => {
       const foundProduct = newProducts.find(p => p.id === id);
       if (foundProduct) {
         setProduct(foundProduct);
+        setSelectedSize(foundProduct.sizes[0] || ''); // Establecer el primer tamaño disponible
         setSelectedColor(foundProduct.colors ? foundProduct.colors[0] : '');
         setCurrentImageIndex(foundProduct.colors ? getColorIndex(foundProduct.colors[0]) : 0);
       } else {

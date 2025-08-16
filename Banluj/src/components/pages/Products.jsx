@@ -54,8 +54,11 @@ const newProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Individual"],
-    pricesBySize: { Individual: 1950 },
-    images: [logoImage3, dormirImage, patasImage],
+pricesBySize: {
+     Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },    images: [logoImage3, dormirImage, patasImage],
     rating: 4.5,
     style: "moderno"
   },
@@ -72,8 +75,12 @@ const newProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Matrimonial"],
-    pricesBySize: { Matrimonial: 2100 },
-    images: [logoImage3, dormirImage, patasImage],
+    pricesBySize: {
+     Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
+        images: [logoImage3, dormirImage, patasImage],
     rating: 4.7,
     style: "moderno"
   },
@@ -90,14 +97,18 @@ const newProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2200 },
-    images: [logoImage3, dormirImage, patasImage],
+pricesBySize: {
+     Individual: 1900,
+      Matrimonial: 2000,
+      "Queen Size": 2100,
+    },
+        images: [logoImage3, dormirImage, patasImage],
     rating: 4.8,
     style: "moderno"
   },
   {
     id: "cabecera_capitonada_001",
-    name: "Cabecera Capitonada Tapizada en Tela",
+    name: "Cabecera Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,
@@ -120,7 +131,7 @@ const newProducts = [
   },
   {
     id: "cabecera_capitonada_002",
-    name: "Cabecera Capitonada Tapizada en Tela",
+    name: "Cabecera Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,
@@ -143,7 +154,7 @@ const newProducts = [
   },
   {
     id: "cabecera_capitonada_003",
-    name: "Cabecera Capitonada Tapizada en Tela",
+    name: "Cabecera Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,
@@ -166,7 +177,7 @@ const newProducts = [
   },
   {
     id: "cabecera_capitonada_004",
-    name: "Cabecera Capitonada Tapizada en Tela",
+    name: "Cabecera Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,

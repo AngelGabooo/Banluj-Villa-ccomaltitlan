@@ -330,43 +330,7 @@ const Header = () => {
               )}
               
               {/* Login/Logout en menú móvil */}
-              <li className="sm:hidden border-t border-gray-200/50 pt-2 mt-4">
-                {isAdmin ? (
-                  <button 
-                    onClick={() => {
-                      logout();
-                      setIsMenuOpen(false);
-                    }}
-                    className={`
-                      w-full flex items-center py-3 px-4 rounded-xl font-semibold transition-all duration-300
-                      ${isScrolled 
-                        ? 'text-gray-700 hover:bg-red-50/80' 
-                        : 'text-gray-800 hover:bg-red-100/40'
-                      }
-                      transform hover:scale-105 active:scale-95
-                    `}
-                  >
-                    <Icon name="logout" size="md" className="mr-3 text-red-500" />
-                    Cerrar Sesión
-                  </button>
-                ) : (
-                  <Link 
-                    to="/login"
-                    className={`
-                      flex items-center py-3 px-4 rounded-xl font-semibold transition-all duration-300
-                      ${isScrolled 
-                        ? 'text-gray-700 hover:bg-green-50/80' 
-                        : 'text-gray-800 hover:bg-green-100/40'
-                      }
-                      transform hover:scale-105 active:scale-95
-                    `}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <Icon name="login" size="md" className="mr-3 text-green-600" />
-                    Iniciar Sesión
-                  </Link>
-                )}
-              </li>
+              
             </ul>
           </nav>
         </div>

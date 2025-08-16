@@ -9,9 +9,9 @@ import logoImage from '../../assets/imagenes/logo.jpg';
 import logoImage3 from '../../assets/imagenes/logo1.png';
 import tela1Image from '../../assets/imagenes/madera.webp';
 import piel1Image from '../../assets/imagenes/tactopiel1.png';
-import piel3Image from '../../assets/imagenes/tactopielnegro.webp';
 import cabeImage from '../../assets/imagenes/cabe.webp';
 import cabeceraImage from '../../assets/imagenes/cabeceratacto.png';
+import piel3Image from '../../assets/imagenes/tactopielnegro.png';
 
 const carouselItems = [
   {
