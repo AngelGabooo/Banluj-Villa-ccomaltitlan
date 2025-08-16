@@ -2,13 +2,16 @@ import React from 'react';
 import MainTemplate from '../templates/MainTemplate';
 import Carousel from '../organisms/Carousel';
 import ProductGrid from '../organisms/ProductGrid';
-import Typography from '../atoms/Typography'; // Solo una vez, como átomo
-import WhereWeAre from '../organisms/WhereWeAre'; // Importamos WhereWeAre como organismo
+import Typography from '../atoms/Typography';
+import WhereWeAre from '../organisms/WhereWeAre';
 import About from './About';
 import logoImage from '../../assets/imagenes/logo.jpg';
 import logoImage3 from '../../assets/imagenes/logo1.png';
-import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
 import tela1Image from '../../assets/imagenes/madera.webp';
+import piel1Image from '../../assets/imagenes/tactopiel1.png';
+import piel3Image from '../../assets/imagenes/tactopielnegro.webp';
+import cabeImage from '../../assets/imagenes/cabe.webp';
+import cabeceraImage from '../../assets/imagenes/cabeceratacto.png';
 
 const carouselItems = [
   {
@@ -31,31 +34,31 @@ const carouselItems = [
 const featuredProducts = [
   {
     id: "base_individual_001",
-    name: "Base Individual",
-    description: "Base de cama individual, robusta y elegante, ideal para espacios pequeños.",
-    price: 1850,
+    name: "Base Individual en Tela",
+    description: "Base de cama individual, robusta y elegante, tapizada en tela, ideal para espacios pequeños.",
+    price: 1900,
     image: logoImage3
   },
   {
-    id: "base_matrimonial_001",
-    name: "Base Matrimonial",
-    description: "Base de cama matrimonial, perfecta para parejas con diseño funcional.",
-    price: 1950,
-    image: logoImage3
+    id: "base_tactopiel_individual_001",
+    name: "Base Matrimonial en Tacto Piel",
+    description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
+    price: 1800,
+    image: piel3Image
   },
   {
-    id: "base_queen_size_001",
-    name: "Base Queen Size",
-    description: "Base de cama Queen Size, ideal para un descanso espacioso y cómodo.",
-    price: 2000,
-    image: logoImage3
+    id: "cabecera_capitonada_005",
+    name: "Cabecera Capitonada en Tacto Piel",
+    description: "Perfecta para mejorar tu hogar, con diseño funcional y acabado en tacto piel.",
+    price: 2400,
+    image: cabeceraImage
   },
   {
     id: "cabecera_capitonada_001",
-    name: "Cabecera Capitonada",
-    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-    price: 2400,
-    image: cabeI1mage
+    name: "Cabecera Capitonada en Tela",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños y acabado en tela.",
+    price: 1200,
+    image: cabeImage
   }
 ];
 
@@ -67,16 +70,22 @@ const Home = () => {
         <Carousel items={carouselItems} />
       </section>
       
-      {/* Sección de productos */}
+      {/* Sección de bienvenida */}
       <section className="container mx-auto px-4 py-12 md:py-16 lg:py-20">
         <div className="text-center mb-12 md:mb-16">
           <Typography variant="h2" className="mb-4 text-3xl md:text-4xl font-bold">
             Bienvenido a Muebles BANLUJ
           </Typography>
           <Typography variant="p" className="max-w-2xl mx-auto text-gray-600 text-lg">
+            Descubre nuestra amplia gama de muebles de alta calidad. ¡Contáctanos al{' '}
+            <a href="tel:+521234567890" className="text-blue-600 hover:underline">
+              +52 123 456 7890
+            </a>{' '}
+            para más información!
           </Typography>
         </div>
         
+        {/* Sección de productos */}
         <Typography variant="h2" className="mb-8 text-2xl md:text-3xl font-bold text-center">
           Nuestros Productos
         </Typography>

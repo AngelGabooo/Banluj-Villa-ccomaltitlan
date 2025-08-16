@@ -21,11 +21,21 @@ import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
 import cabeI2mage from '../../assets/imagenes/cabechoco.webp';
 import cabeI3mage from '../../assets/imagenes/cabebeige.webp';
 import { useFavorites } from '../../context/FavoritesContext';
+import cabecera3mage from '../../assets/imagenes/cabeceranegra1.png';
+import cabeceraImage from '../../assets/imagenes/cabeceratacto.png';
+import cabeceratela2Image from '../../assets/imagenes/cabeceratelagris1.png';
+import cabeceratelabeigeImage from '../../assets/imagenes/cabeceratelabeige.png';
+import cabecera6mage from '../../assets/imagenes/cabeceratact.png';
+import capitoImage from '../../assets/imagenes/capitonadacafe.png';
+import capito1Image from '../../assets/imagenes/capitonadacafe1.png';
+import tac1Image from '../../assets/imagenes/tactogris.webp';
+import tacImage from '../../assets/imagenes/tactogris2.webp';
 
 const shippingZones = [
-  { id: 1, name: 'Tapachula', price: 0 },
-  { id: 2, name: 'Mapastepec - Tonalá', price: 300 },
-  { id: 3, name: 'Fuera de región', price: 500 },
+  { id: 1, name: 'Mapastepec - Escuintla - Huixtla - Tapachula', price: 0 },
+  { id: 2, name: 'Pijijiapan', price: 400 },
+  { id: 3, name: 'Tonala - Tuxtla', price: 800 },
+  { id: 4, name: 'Fuera del rango de entregas', price: 0, priceText: 'A tratar al instante' },
 ];
 
 const newProducts = [
@@ -34,7 +44,7 @@ const newProducts = [
     name: "Base Individual",
     description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
     longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 1950,
+    price: 1900,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
@@ -66,7 +76,7 @@ const newProducts = [
     name: "Base Queen Size",
     description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
     longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 2200,
+    price: 2100,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
@@ -78,11 +88,11 @@ const newProducts = [
     rating: 4.8,
   },
   {
-    id: "base_queen_size_001",
+    id: "base_queen_size_002",
     name: "Base Queen Size",
     description: "Base de cama individual, robusta y sofisticada, perfecta para optimizar espacios reducidos sin renunciar al estilo.",
     longDescription: "Eleva el confort y la elegancia de tu habitación con nuestra base de cama individual, elaborada en resistente madera de pino de primera calidad. Su fino tapizado está disponible en dos tonos atemporales: chocolate y gris, combinando fácilmente con cualquier decoración. Diseñada para brindar máxima resistencia, soporta hasta 500 kg y cuenta con 6 patas para mayor estabilidad (4 de plástico de alta resistencia y 2 de metal cromado que aportan un toque moderno). Respaldada con 1 año de garantía para tu tranquilidad",
-    price: 2200,
+    price: 2100,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
@@ -108,85 +118,85 @@ const newProducts = [
     sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
     pricesBySize: {
       Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
     images: [cabeImage],
     rating: 4.6,
   },
   {
-      id: "cabecera_capitonada_002",
-      name: "Cabecera Capitonada Negra",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI1mage],
-      rating: 4.6,
+    id: "cabecera_capitonada_002",
+    name: "Cabecera Capitonada Negra",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
-    {
-      id: "cabecera_capitonada_003",
-      name: "Cabecera Capitonada",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI2mage],
-      rating: 4.6,
+    images: [cabecera3mage],
+    rating: 4.6,
+  },
+  {
+    id: "cabecera_capitonada_003",
+    name: "Cabecera Capitonada",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
-       {
-      id: "cabecera_capitonada_004",
-      name: "Cabecera Capitonada",
-      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-      longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-      price: 2400,
-      category: "cabeceras",
-      material: "Tela",
-      colors: [],
-      loadCapacity: null,
-      warranty: "1 año",
-      legs: null,
-      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-      pricesBySize: {
-        Individual: 2400,
-        Matrimonial: 2550,
-        "Queen Size": 2700,
-        "King Size": 3800
-      },
-      images: [cabeI3mage],
-      rating: 4.6,
+    images: [cabeI2mage],
+    rating: 4.6,
+  },
+  {
+    id: "cabecera_capitonada_004",
+    name: "Cabecera Capitonada en Tela",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 2400,
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
+    images: [cabeceratelabeigeImage],
+    rating: 4.6,
+  },
   {
     id: "base_tactopiel_individual_001",
     name: "Base Tactopiel Individual",
     description: "Base de cama individual en tactopiel, elegante y duradera.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 1850,
+    price: 1800,
     category: "camas",
     material: "Tactopiel",
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
@@ -194,7 +204,7 @@ const newProducts = [
     warranty: "1 año",
     sizes: ["Individual"],
     pricesBySize: { Individual: 1850 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
+    images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.5,
   },
   {
@@ -202,7 +212,7 @@ const newProducts = [
     name: "Base Tactopiel Matrimonial",
     description: "Base de cama matrimonial en tactopiel, perfecta para parejas.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 1950,
+    price: 1900,
     category: "camas",
     material: "Tactopiel",
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
@@ -210,7 +220,7 @@ const newProducts = [
     warranty: "1 año",
     sizes: ["Matrimonial"],
     pricesBySize: { Matrimonial: 1950 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
+    images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.7,
   },
   {
@@ -218,7 +228,7 @@ const newProducts = [
     name: "Base Tactopiel Queen Size",
     description: "Base de cama Queen Size en tactopiel, ideal para un descanso espacioso.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 2000,
+    price: 1950,
     category: "camas",
     material: "Tactopiel",
     colors: ["Chocolate", "Gris", "Negro", "Beige"],
@@ -226,9 +236,75 @@ const newProducts = [
     warranty: "1 año",
     sizes: ["Queen Size"],
     pricesBySize: { "Queen Size": 2000 },
-    images: [negro1Image,negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image ],
+    images: [negro1Image, negroImage, negro2Image, piel1Image, chocoImage, pielImage, patasImage, tela1Image],
     rating: 4.8,
-  }
+  },
+  {
+    id: "cabecera_capitonada_005",
+    name: "Cabecera Capitonada Tacto Piel",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 1200,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 1200,
+      Matrimonial: 1350,
+      "Queen Size": 1450,
+      "King Size": 1800
+    },
+    images: [cabeceraImage, cabecera6mage],
+    rating: 4.6,
+  },
+  {
+    id: "cabecera_capitonada_006",
+    name: "Cabecera Capitonada Tacto Piel",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 1200,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 1200,
+      Matrimonial: 1350,
+      "Queen Size": 1450,
+      "King Size": 1800
+    },
+    images: [capitoImage, capito1Image],
+    rating: 4.6,
+  },
+  {
+    id: "cabecera_capitonada_007",
+    name: "Cabecera Capitonada Tacto Piel",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tacto piel de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 1200,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+      Individual: 1200,
+      Matrimonial: 1350,
+      "Queen Size": 1450,
+      "King Size": 1800
+    },
+    images: [tac1Image, tacImage],
+    rating: 4.6,
+  },
 ];
 
 const ProductDetail = () => {
@@ -248,7 +324,7 @@ const ProductDetail = () => {
         return 4; // Índice de chocoImage
       case 'Gris':
         return 0; // Índice de dormirImage (ajustar si tienes imagen específica para Gris)
-      case 'Negra':
+      case 'Negro':
         return 3; // Índice de negroImage
       case 'Beige':
         return 5; // Índice de pielImage
@@ -343,7 +419,7 @@ const ProductDetail = () => {
   };
 
   const selectedShipping = shippingZones.find((z) => z.id === selectedZone);
-  const totalPrice = getPrice() + selectedShipping.price;
+  const totalPrice = selectedShipping.priceText ? null : getPrice() + selectedShipping.price;
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
@@ -480,10 +556,6 @@ const ProductDetail = () => {
                   </li>
                 )}
                 <li className="flex">
-                  <span className="font-medium w-24">Estilo:</span>
-                  <span>{product.style}</span>
-                </li>
-                <li className="flex">
                   <span className="font-medium w-24">Marca:</span>
                   <span className="font-medium text-amber-600">BANLUJ</span>
                 </li>
@@ -543,7 +615,7 @@ const ProductDetail = () => {
               >
                 {shippingZones.map((zone) => (
                   <option key={zone.id} value={zone.id}>
-                    {zone.name} - {zone.price === 0 ? 'GRATIS' : `$${zone.price}`}
+                    {zone.name} - {zone.priceText || (zone.price === 0 ? 'GRATIS' : `$${zone.price}`)}
                   </option>
                 ))}
               </select>
@@ -555,12 +627,17 @@ const ProductDetail = () => {
                   Total:
                 </Typography>
                 <Typography variant="h2" className="text-2xl font-bold text-amber-600">
-                  ${totalPrice.toFixed(2)}
+                  {totalPrice !== null ? `$${totalPrice.toFixed(2)}` : `$${getPrice().toFixed(2)} + Envío a tratar al instante`}
                 </Typography>
               </div>
-              {selectedShipping.price > 0 && (
+              {selectedShipping.price > 0 && !selectedShipping.priceText && (
                 <Typography variant="p" className="text-sm text-gray-500 mt-1">
                   (Incluye ${getPrice().toFixed(2)} del producto + ${selectedShipping.price} de envío)
+                </Typography>
+              )}
+              {selectedShipping.priceText && (
+                <Typography variant="p" className="text-sm text-gray-500 mt-1">
+                  (Incluye ${getPrice().toFixed(2)} del producto + Envío a tratar al instante)
                 </Typography>
               )}
             </div>
@@ -571,7 +648,7 @@ const ProductDetail = () => {
                 className="w-full flex items-center justify-center"
                 onClick={() =>
                   window.open(
-                    `https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name} - BANLUJ`,
+                    `https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${getPrice().toFixed(2)}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor || 'N/A'} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name}${selectedShipping.priceText ? ' (Envío a tratar al instante)' : ''} - BANLUJ`,
                     '_blank'
                   )
                 }

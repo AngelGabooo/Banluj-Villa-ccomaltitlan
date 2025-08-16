@@ -17,6 +17,11 @@ import piel2Image from '../../assets/imagenes/tactopiel.png';
 import piel3Image from '../../assets/imagenes/tactopielnegro.webp';
 import piel4Image from '../../assets/imagenes/tactopielchoco.webp';
 import { useFavorites } from '../../context/FavoritesContext';
+import cabeceraImage from '../../assets/imagenes/cabeceratacto.png';
+import cabeceratela2Image from '../../assets/imagenes/cabeceratelagris1.png';
+import capitoImage from '../../assets/imagenes/capitonadacafe.png';
+import tac1Image from '../../assets/imagenes/tactogris.webp';
+import tacImage from '../../assets/imagenes/tactogris2.webp';
 
 const shippingZones = [
   { id: 1, name: 'Mapastepec - Tapachula', price: 0 },
@@ -27,10 +32,10 @@ const shippingZones = [
 export const tactopielProducts = [
   {
     id: "base_tactopiel_individual_001",
-    name: "Base Tactopiel Individual",
+    name: "Base Individual en Tacto Piel",
     description: "Base de cama individual en tactopiel, elegante y duradera.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 1850,
+    price: 1800,
     category: "camas",
     material: "tactopiel",
     colors: ["Chocolate", "Gris", "Negra", "Beige"],
@@ -45,10 +50,10 @@ export const tactopielProducts = [
   },
   {
     id: "base_tactopiel_matrimonial_001",
-    name: "Base Tactopiel Matrimonial",
+    name: "Base Matrimonial en Tacto Piel",
     description: "Base de cama matrimonial en tactopiel, perfecta para parejas.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 1950,
+    price: 1900,
     category: "camas",
     material: "tactopiel",
     colors: ["Chocolate", "Gris", "Negra", "Beige"],
@@ -63,10 +68,10 @@ export const tactopielProducts = [
   },
   {
     id: "base_tactopiel_queen_size_001",
-    name: "Base Tactopiel Queen Size",
+    name: "Base Queen Size en Tacto Piel",
     description: "Base de cama Queen Size en tactopiel, ideal para un descanso espacioso.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tactopiel con opciones de colores chocolate, gris, negra y beige. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 2000,
+    price: 1950,
     category: "camas",
     material: "tactopiel",
     colors: ["Chocolate", "Gris", "Negra", "Beige"],
@@ -74,11 +79,82 @@ export const tactopielProducts = [
     warranty: "1 año",
     legs: { count: 6, types: { plastic: 4, metal: 2 } },
     sizes: ["Queen Size"],
-    pricesBySize: { "Queen Size": 2000 },
+    pricesBySize: { "Queen Size":   2000 },
     images: [piel4Image, negro1Image, negro2Image, chocoImage, pielImage],
     rating: 4.8,
     style: "moderno"
-  }
+    
+  },
+  {
+      id: "cabecera_capitonada_005",
+      name: "Cabecera Capitonada en Tacto Piel",
+      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+      description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
+      price: 1350,
+      category: "cabeceras",
+      material: "tela",
+      colors: [],
+      loadCapacity: null,
+      warranty: "1 año",
+      legs: null,
+      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+      pricesBySize: {
+        Individual: 1200,
+        Matrimonial: 1350,
+        "Queen Size": 1450,
+        "King Size": 1800
+      },
+      images: [cabeceraImage],
+      rating: 4.6,
+      style: "moderno"
+    },
+     {
+      id: "cabecera_capitonada_006",
+      name: "Cabecera Capitonada en Tacto Piel",
+      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+      description: "Base de cama king Size, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
+      price: 1800,
+      category: "cabeceras",
+      material: "tela",
+      colors: [],
+      loadCapacity: null,
+      warranty: "1 año",
+      legs: null,
+      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+      pricesBySize: {
+          Individual: 1200,
+        Matrimonial: 1350,
+        "Queen Size": 1450,
+        "King Size": 1800
+      },
+      images: [capitoImage],
+      rating: 4.6,
+      style: "moderno"
+    },
+      {
+      id: "cabecera_capitonada_007",
+      name: "Cabecera Capitonada en Tacto Piel",
+      description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+      description: "Base de cama matrimonial, perfecta para parejas, con diseño funcional y acabado en tacto piel.",
+      price: 1350,
+      category: "cabeceras",
+      material: "tela",
+      colors: [],
+      loadCapacity: null,
+      warranty: "1 año",
+      legs: null,
+      sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+      pricesBySize: {
+          Individual: 1200,
+        Matrimonial: 1350,
+        "Queen Size": 1450,
+        "King Size": 1800
+      },
+      images: [tac1Image],
+      rating: 4.6,
+      style: "moderno"
+    },
+   
 ];
 
 const TactopielProducts = () => {

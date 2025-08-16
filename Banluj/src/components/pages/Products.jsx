@@ -14,6 +14,8 @@ import cabeImage from '../../assets/imagenes/cabe.webp';
 import cabeI1mage from '../../assets/imagenes/cabenegro.webp';
 import cabeI2mage from '../../assets/imagenes/cabechoco.webp';
 import cabeI3mage from '../../assets/imagenes/cabebeige.webp';
+import cabecera3mage from '../../assets/imagenes/cabeceranegra1.png';
+import cabeceratelabeigeImage from '../../assets/imagenes/cabeceratelabeige.png';
 
 const categories = [
   { id: 'all', name: 'Todos', icon: 'all_inclusive' },
@@ -41,10 +43,10 @@ const sortOptions = [
 const newProducts = [
   {
     id: "base_individual_001",
-    name: "Base Individual",
+    name: "Base Individual Tapizada en Tela",
     description: "Base de cama individual, robusta y elegante, ideal para espacios pequeños.",
     longDescription: "Fabricada en madera de pino de alta calidad, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 1950,
+    price: 1900,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
@@ -59,10 +61,10 @@ const newProducts = [
   },
   {
     id: "base_matrimonial_001",
-    name: "Base Matrimonial",
+    name: "Base Matrimonial Tapizada en Tela",
     description: "Base de cama matrimonial, perfecta para parejas con diseño funcional.",
     longDescription: "Fabricada en madera de pino, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 2100,
+    price: 2000,
     category: "camas",
     material: "Tela",
     colors: ["Chocolate", "Gris"],
@@ -77,12 +79,12 @@ const newProducts = [
   },
   {
     id: "base_queen_size_001",
-    name: "Base Queen Size",
+    name: "Base Queen Size Tapizada en Tela",
     description: "Base de cama Queen Size, ideal para un descanso espacioso y cómodo.",
     longDescription: "Fabricada en madera de pino, tapizada en tela con opciones de colores chocolate y gris. Soporta hasta 500 kg, incluye 6 patas (4 de plástico y 2 de metal cromado). Garantía de 1 año.",
-    price: 2200,
+    price: 2100,
     category: "camas",
-    material: "tela",
+    material: "Tela",
     colors: ["Chocolate", "Gris"],
     loadCapacity: 500,
     warranty: "1 año",
@@ -95,53 +97,7 @@ const newProducts = [
   },
   {
     id: "cabecera_capitonada_001",
-    name: "Cabecera Capitonada",
-    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-    price: 2400,
-    category: "cabeceras",
-    material: "tela",
-    colors: [],
-    loadCapacity: null,
-    warranty: "1 año",
-    legs: null,
-    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-    pricesBySize: {
-      Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
-    },
-    images: [cabeImage],
-    rating: 4.6,
-    style: "moderno"
-  },
-  {
-    id: "cabecera_capitonada_002",
-    name: "Cabecera Capitonada Negra",
-    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
-    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
-    price: 2400,
-    category: "cabeceras",
-    material: "tela",
-    colors: [],
-    loadCapacity: null,
-    warranty: "1 año",
-    legs: null,
-    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
-    pricesBySize: {
-      Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
-    },
-    images: [cabeI1mage],
-    rating: 4.6,
-    style: "moderno"
-  },
-  {
-    id: "cabecera_capitonada_003",
-    name: "Cabecera Capitonada",
+    name: "Cabecera Capitonada Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,
@@ -154,17 +110,17 @@ const newProducts = [
     sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
     pricesBySize: {
       Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
-    images: [cabeI2mage],
+    images: [cabeImage],
     rating: 4.6,
     style: "moderno"
   },
   {
-    id: "cabecera_capitonada_004",
-    name: "Cabecera Capitonada",
+    id: "cabecera_capitonada_002",
+    name: "Cabecera Capitonada Tapizada en Tela",
     description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
     longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
     price: 2400,
@@ -177,14 +133,61 @@ const newProducts = [
     sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
     pricesBySize: {
       Individual: 2400,
-      Matrimonial: 2550,
-      "Queen Size": 2700,
-      "King Size": 3800
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
     },
-    images: [cabeI3mage],
+    images: [cabecera3mage],
     rating: 4.6,
     style: "moderno"
-  }
+  },
+  {
+    id: "cabecera_capitonada_003",
+    name: "Cabecera Capitonada Tapizada en Tela",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "Tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+     Individual: 2400,
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
+    },
+    images: [cabeI2mage],
+    rating: 4.6,
+    style: "moderno"
+  },
+  {
+    id: "cabecera_capitonada_004",
+    name: "Cabecera Capitonada Tapizada en Tela",
+    description: "Cabecera elegante con diseño capitonado, disponible en varios tamaños.",
+    longDescription: "Fabricada en madera de pino, tapizada en tela de alta calidad. Disponible en tamaños Individual, Matrimonial, Queen Size y King Size. Añade un toque sofisticado a cualquier dormitorio.",
+    price: 2400,
+    category: "cabeceras",
+    material: "tela",
+    colors: [],
+    loadCapacity: null,
+    warranty: "1 año",
+    legs: null,
+    sizes: ["Individual", "Matrimonial", "Queen Size", "King Size"],
+    pricesBySize: {
+        Individual: 2400,
+      Matrimonial: 2600,
+      "Queen Size": 2850,
+      "King Size": 3900
+    },
+    images: [cabeceratelabeigeImage],
+    rating: 4.6,
+    style: "moderno"
+  },
+  
 ];
 
 const Products = () => {
