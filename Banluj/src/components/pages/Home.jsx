@@ -77,11 +77,8 @@ const Home = () => {
             Bienvenido a Muebles BANLUJ
           </Typography>
           <Typography variant="p" className="max-w-2xl mx-auto text-gray-600 text-lg">
-            Descubre nuestra amplia gama de muebles de alta calidad. ¡Contáctanos al{' '}
             <a href="tel:+521234567890" className="text-blue-600 hover:underline">
-              +52 123 456 7890
             </a>{' '}
-            para más información!
           </Typography>
         </div>
         
