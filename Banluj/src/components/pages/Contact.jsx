@@ -181,7 +181,7 @@ const Contact = () => {
                       Teléfono
                     </Typography>
                     <Typography variant="p" className="text-green-600 font-medium hover:text-green-800 cursor-pointer transition-colors">
-                      +52 918 118 6354
+                      +52 918 126 2599
                     </Typography>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const Contact = () => {
                       WhatsApp
                     </Typography>
                     <Typography variant="p" className="text-purple-600 font-medium hover:text-purple-800 cursor-pointer transition-colors">
-                      +52 918 118 6354
+                      +52 918 126 2599
                     </Typography>
                   </div>
                 </div>

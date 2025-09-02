@@ -31,7 +31,7 @@ const Footer = () => {
                 <Icon name="instagram" size="lg" />
               </a>
               <a 
-                href={`https://wa.me/529181186354`} 
+                href={`https://wa.me/5291811262599`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-700 hover:text-gray-900 transition-colors"
@@ -87,8 +87,7 @@ const Footer = () => {
               <li className="flex items-center">
                 <Icon name="phone" size="sm" className="text-amber-600 mr-3" />
                 <a href="tel:+529181186354" className="text-gray-700 hover:text-gray-900 transition-colors">
-                  +52 918 118 6354
-                </a>
+                  +52 918 126 2599                </a>
               </li>
               <li className="flex items-center">
                 <Icon name="mail" size="sm" className="text-amber-600 mr-3" />

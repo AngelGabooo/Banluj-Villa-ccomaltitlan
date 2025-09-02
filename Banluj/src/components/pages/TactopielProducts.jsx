@@ -413,7 +413,7 @@ const TactopielProductDetail = () => {
             </Button>
             <Button
               variant="secondary"
-              onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
+              onClick={() => window.open(`https://wa.me/529181262599?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
               className="mt-4 md:mt-0"
             >
               <Icon name="whatsapp" className="mr-2" />
@@ -674,7 +674,7 @@ const TactopielProductDetail = () => {
                 className="w-full flex items-center justify-center"
                 onClick={() =>
                   window.open(
-                    `https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name} - BANLUJ`,
+                    `https://wa.me/5291812622599?text=Hola, estoy interesado en: ${product.name} (${totalPrice}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name} - BANLUJ`,
                     '_blank'
                   )
                 }

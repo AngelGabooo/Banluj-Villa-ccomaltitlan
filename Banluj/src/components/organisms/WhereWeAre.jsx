@@ -128,7 +128,7 @@ const WhereWeAre = () => {
               </Typography>
             </div>
             <Typography variant="p" className="text-amber-800 font-medium">
-              +52 918 118 6354
+              +52 918 126 2599
             </Typography>
           </div>
 
@@ -143,7 +143,7 @@ const WhereWeAre = () => {
               </Typography>
             </div>
             <Typography variant="p" className="text-amber-800 font-medium">
-              +52 918 118 6354
+              +52 918 126 2599
             </Typography>
           </div>
 

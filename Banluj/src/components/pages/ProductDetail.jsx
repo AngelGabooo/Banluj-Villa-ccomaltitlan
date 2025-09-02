@@ -428,7 +428,7 @@ const ProductDetail = () => {
             </Button>
             <Button
               variant="secondary"
-              onClick={() => window.open(`https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
+              onClick={() => window.open(`https://wa.me/529181262599?text=Hola, estoy interesado en: ${product.name} - BANLUJ`, '_blank')}
               className="mt-4 md:mt-0"
             >
               <Icon name="whatsapp" className="mr-2" />
@@ -677,7 +677,7 @@ const ProductDetail = () => {
                 className="w-full flex items-center justify-center"
                 onClick={() =>
                   window.open(
-                    `https://wa.me/528144384806?text=Hola, estoy interesado en: ${product.name} (${getPrice().toFixed(2)}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor || 'N/A'} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name}${selectedShipping.priceText ? ' (Envío a tratar al instante)' : ''} - BANLUJ`,
+                    `https://wa.me/529181262599?text=Hola, estoy interesado en: ${product.name} (${getPrice().toFixed(2)}) - Material: ${product.material} - Tamaño: ${selectedSize || 'N/A'} - Color: ${selectedColor || 'N/A'} - Zona: ${shippingZones.find((z) => z.id === selectedZone).name}${selectedShipping.priceText ? ' (Envío a tratar al instante)' : ''} - BANLUJ`,
                     '_blank'
                   )
                 }
